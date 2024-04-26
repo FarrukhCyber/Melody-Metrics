@@ -8,17 +8,24 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link href="static/css/theme.css" rel="stylesheet">
   </head>
+
   <body>
-    <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-custom">
+      <div class="container-fluid">
+          <!-- Spotify logo and dashboard name -->
+          <a class="navbar-brand" href="#">
+              <img src="static/img/logo_black.png" alt="Spotify Logo" width="30" height="30" class="d-inline-block align-top">
+              Spotify Dashboard
+          </a>
 
-      <div class="row w-100">
-        <div class="col">
-          <h1 class="text-center">Spotify Dashboard</h1>
-        </div>
+          <!-- Placeholder for right-aligned dropdowns -->
+          <div class="d-flex justify-content-end">
+              <!-- Placeholder content -->
+          </div>
       </div>
-
-    </div>
+    </nav>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="{{ url_for('static', filename='js/test.js')}}"></script>
