@@ -9,6 +9,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import mean_squared_error, pairwise_distances
 import random
 from sklearn.preprocessing import LabelEncoder
+from keys_pie_chart import get_keys_pie_chart_data
 
 app = Flask(__name__)
 # CORS(app)
@@ -18,6 +19,11 @@ For any data processing, make a relevant function in separate file and call that
 
 '''
 
+# LOAD THE DATASET
+DATASET_PATH = './data/updated_file.csv'
+df = pd.read_csv(DATASET_PATH)
+
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -26,6 +32,10 @@ def index():
 @app.route('/test', methods=['GET'])
 def test():
     return "Hello"
+
+@app.route('/keys', methods=['GET'])
+def keys_pie_chart():
+    return get_keys_pie_chart_data(df)
 
 if __name__ == '__main__':
     app.run(debug=True)
