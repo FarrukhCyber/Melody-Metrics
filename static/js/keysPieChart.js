@@ -9,21 +9,29 @@ export async function createKeysPieChart() {
   console.log("In PieChart, Data:", data);
 
   // Set the dimensions and margins of the graph
-  var width = 450;
-  var height = 450;
+  var width = 400;
+  var height = 400;
   var margin = 40;
 
   // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
   var radius = Math.min(width, height) / 2 - margin;
 
-  // Append the svg object to the div called 'my_dataviz'
   var svg = d3
     .select("#plot1") // Changed from "#plot1" to "svg" for general usage, adjust if your SVG has a specific id
     .append("svg")
     .attr("width", width)
     .attr("height", height)
     .append("g")
+    .attr('viewBox',`0 0 ${width} ${height}`)
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+
+    // ========================================
+
+
+
+    // ========================================
+
 
   // Set the color scale
   var color = d3

@@ -22,7 +22,19 @@ body {
 }
 
 .card-custom {
-    background-color: #292929; /* Slightly lighter than the body background */
-    border: 1px solid #333333; /* Subtle border for distinction */
+    background-color: var(--spotify-black); 
+    /* background-color: #292929;  */
+    /* border: 1px solid #333333;  */
     color: var(--spotify-white);
 }
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .svg-container {
+    display: block; /* Removes extra space below the SVG */
+    margin: auto; /* Horizontally centers the SVG in the container if it's a block element */
+  }
