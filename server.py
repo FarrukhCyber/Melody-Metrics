@@ -11,6 +11,8 @@ import random
 from sklearn.preprocessing import LabelEncoder
 from keys_pie_chart import get_keys_pie_chart_data
 from top30_tracks import get_top_30
+from modes_pie_chart import get_modes_pie_chart_data
+from radar_chart import get_radar_chart_data
 from treemap import get_key_distribution
 from bubble_chart import get_genre_distribution
 # from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -73,6 +75,14 @@ def keys_pie_chart():
 def top30():
     return get_top_30(df)
 
+@app.route('/modes', methods=['GET'])
+def modes_pie_chart():
+    return get_modes_pie_chart_data(df)
+
+
+@app.route('/radar', methods=['GET'])
+def radar_chart():
+    return get_radar_chart_data(df)
 @app.route('/treemap', methods=['GET'])
 def treemap():
     data = get_key_distribution(df)
