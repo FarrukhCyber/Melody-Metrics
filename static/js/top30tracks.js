@@ -8,7 +8,7 @@ async function fetchTop30() {
 export async function createTop30BarChart() {
     const data = await fetchTop30();
     const margin = { top: 50, right: 30, bottom: 120, left: 100 },
-        width = 960 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     // Append the svg object to the body of the page
@@ -62,7 +62,7 @@ export async function createTop30BarChart() {
     .style("font-size", "20px")
     .style("font-family", "Arial")
     .style("fill", "white")
-    .text("Top 30 Spotify Songs based on Streams");
+    .text("Top 20 Spotify Songs based on Streams");
 }
 
     

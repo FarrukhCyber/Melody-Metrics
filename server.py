@@ -125,7 +125,16 @@ def song_count():
     # Return the count
     return jsonify({'song_count': 800})
 
+@app.route('/sonority_index', methods=['GET'])
+def sonority_index():
+    # Load your data
+    # df = pd.read_csv('./data/songs.csv')  # Assume your data file is named 'songs.csv'
 
+    # # Count the songs (customize this if you need to filter the data)
+    # count = df.shape[0]
+    print('hi')
+    # Return the count
+    return jsonify({'index': 5.5})
 
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
