@@ -54,8 +54,23 @@
         <option value="charts">Charts</option>
       </select>
       <div id="pcp"></div>
+      <div id="percentage"></div>
+      <div class="card">
+        <p>Total Songs</p>
+        <h1 id="songCount">Loading...</h1>  <!-- Placeholder text -->
+      </div>
     </div>
 
+    <script>
+      async function fetchSongCount() {
+          const response = await fetch('/song_count');
+          const data = await response.json();
+          console.log()
+          document.getElementById('songCount').textContent = data.song_count.toLocaleString();  // Format number with commas
+      }
+
+      fetchSongCount();  // Call the function to update the count on load
+    </script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script
       type="module"

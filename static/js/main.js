@@ -5,7 +5,8 @@ import {createRadarChart} from './radarChart.js'
 import { createTreemap } from './treemap.js'
 import { createBubbleChart } from './bubbleChart.js'
 import { createParallelCoordinatesPlot } from './pcp.js'
-// import { drawTimeSeries } from './timeSeries.js'
+import { drawPercentage } from './percentage.js'
+
 
 // createKeysPieChart()
 createTop30BarChart()
@@ -15,3 +16,4 @@ createTreemap()
 createBubbleChart()
 // getData('playlists')
 createParallelCoordinatesPlot('playlist')
+drawPercentage()

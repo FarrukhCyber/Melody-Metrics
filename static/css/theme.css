@@ -37,3 +37,23 @@ body {
     display: block; /* Removes extra space below the SVG */
     margin: auto; /* Horizontally centers the SVG in the container if it's a block element */
   }
+
+  .card {
+    background-color: #1DB954;  /* Spotify Green */
+    color: white;
+    padding: 20px;
+    margin: 20px;
+    font-size: 28px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.card h1 {
+    margin: 10px 0;
+    font-size: 48px;  /* Larger font size for the count */
+    font-weight: bold;
+}
+.card p {
+    margin: 4px 0;
+    font-size: 20px; /* Smaller font size for the label */
+}
