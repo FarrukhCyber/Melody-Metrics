@@ -11,6 +11,7 @@ import random
 from sklearn.preprocessing import LabelEncoder
 from keys_pie_chart import get_keys_pie_chart_data
 from top30_tracks import get_top_30
+from modes_pie_chart import get_modes_pie_chart_data
 
 app = Flask(__name__)
 # CORS(app)
@@ -43,6 +44,10 @@ def top30():
     print('here')   
 
     return get_top_30(df)
+
+@app.route('/modes', methods=['GET'])
+def modes_pie_chart():
+    return get_modes_pie_chart_data(df)
 
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
