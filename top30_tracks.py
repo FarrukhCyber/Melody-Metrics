@@ -2,7 +2,7 @@ from flask import jsonify
 
 def get_top_30(df):
     # Sort the DataFrame by 'streams', get the top 30, and reset the index
-    temp = df.sort_values(by='streams', ascending=False).head(30).reset_index(drop=True)
+    temp = df.sort_values(by='streams', ascending=False).head(20).reset_index(drop=True)
     
 
     if 'track_name' in df.columns:

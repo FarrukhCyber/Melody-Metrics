@@ -57,3 +57,14 @@ body {
     margin: 4px 0;
     font-size: 20px; /* Smaller font size for the label */
 }
+.form-label {
+    margin-bottom: 0; /* Removes the default bottom margin from the label */
+}
+.dropdown-menu-bpm {
+    max-height: 200px;
+    overflow-y: auto;
+}
+#blinkingCircle {
+    vertical-align: middle;
+    margin-left: 10px;
+}
