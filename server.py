@@ -93,23 +93,7 @@ def pcp():
     
     return jsonify(temp[features].to_json(orient='records'))
 
-@app.route('/time_series', methods=['GET'])
-def time_series_data():
-    # Load your data
-    if 'released_year' in df.columns and 'released_month' in df.columns and 'released_day' in df.columns:
-        df.rename(columns={'released_year': 'year', 'released_month': 'month', 'released_day': 'day'}, inplace=True)
 
-    # Now you can safely create a 'date' column
-    df['date'] = pd.to_datetime(df[['year', 'month', 'day']])
-
-    # Group data by date and count songs
-    time_data = df.groupby('date').size().reset_index(name='count')
-
-    # Convert the date column to string format that JavaScript can easily parse
-    time_data['date'] = time_data['date'].dt.strftime('%Y-%m-%d')
-    print(time_data)
-    # Convert to json
-    return jsonify(time_data.to_dict(orient='records'))
 
 
 
