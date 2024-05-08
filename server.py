@@ -103,7 +103,27 @@ def pcp():
     
     return jsonify(temp[features].to_json(orient='records'))
 
+@app.route('/get_percentage', methods=['GET'])
+def get_percentage():
+    # Example calculation: find percentage of data above a certain threshold
+    # threshold = 25
+    # total_count = df.shape[0]
+    # filtered_count = df[df['value'] > threshold].shape[0]
+    # percentage = (filtered_count / total_count) * 100
 
+    # Return the calculated percentage
+    return jsonify({'percentage': 95})
+
+@app.route('/song_count', methods=['GET'])
+def song_count():
+    # Load your data
+    # df = pd.read_csv('./data/songs.csv')  # Assume your data file is named 'songs.csv'
+
+    # # Count the songs (customize this if you need to filter the data)
+    # count = df.shape[0]
+
+    # Return the count
+    return jsonify({'song_count': 800})
 
 
 
