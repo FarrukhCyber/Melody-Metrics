@@ -22,7 +22,7 @@ body {
 }
 
 .card-custom {
-    background-color: #292929; /* Slightly lighter than the body background */
-    border: 1px solid #333333; /* Subtle border for distinction */
+    background-color: var(--spotify-black); /* Slightly lighter than the body background */
+    /* border: 1px solid #333333; Subtle border for distinction */
     color: var(--spotify-white);
 }

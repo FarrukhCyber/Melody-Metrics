@@ -10,6 +10,7 @@ from sklearn.metrics import mean_squared_error, pairwise_distances
 import random
 from sklearn.preprocessing import LabelEncoder
 from keys_pie_chart import get_keys_pie_chart_data
+from top30_tracks import get_top_30
 
 app = Flask(__name__)
 # CORS(app)
@@ -37,5 +38,11 @@ def test():
 def keys_pie_chart():
     return get_keys_pie_chart_data(df)
 
+@app.route('/top30', methods=['GET'])
+def top30():
+    print('here')   
+
+    return get_top_30(df)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001, debug=True)
