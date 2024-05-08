@@ -56,6 +56,8 @@ prepared_data = preprocessor.fit_transform(temp)
 kmeans = KMeans(n_clusters=5, random_state=42)
 temp['cluster'] = kmeans.fit_predict(prepared_data)
 
+# print("TEMP:\n", temp)
+
 
 
 @app.route('/', methods=['GET'])
@@ -83,6 +85,7 @@ def modes_pie_chart():
 @app.route('/radar', methods=['GET'])
 def radar_chart():
     return get_radar_chart_data(df)
+
 @app.route('/treemap', methods=['GET'])
 def treemap():
     data = get_key_distribution(df)
