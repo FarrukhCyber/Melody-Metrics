@@ -123,7 +123,7 @@ export async function createKeysPieChart() {
     var radius = Math.min(width, height) / 2 - margin;
   
     // Append the svg object to the div called 'my_dataviz'
-    var svg = d3.select("#plot1") // Changed from "#plot1" to "svg" for general usage, adjust if your SVG has a specific id
+    var svg = d3.select("#keyDonutChart") // Changed from "#plot1" to "svg" for general usage, adjust if your SVG has a specific id
       .append("svg")
       .attr("width", width)
       .attr("height", height)

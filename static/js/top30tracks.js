@@ -12,7 +12,7 @@ export async function createTop30BarChart() {
         height = 500 - margin.top - margin.bottom;
 
     // Append the svg object to the body of the page
-    const svg = d3.select("body").append("svg")
+    const svg = d3.select("#barChart").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
