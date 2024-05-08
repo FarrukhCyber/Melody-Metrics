@@ -56,6 +56,8 @@ prepared_data = preprocessor.fit_transform(temp)
 kmeans = KMeans(n_clusters=5, random_state=42)
 temp['cluster'] = kmeans.fit_predict(prepared_data)
 
+# print("TEMP:\n", temp)
+
 
 
 @app.route('/', methods=['GET'])
@@ -83,6 +85,7 @@ def modes_pie_chart():
 @app.route('/radar', methods=['GET'])
 def radar_chart():
     return get_radar_chart_data(df)
+
 @app.route('/treemap', methods=['GET'])
 def treemap():
     data = get_key_distribution(df)
@@ -93,15 +96,22 @@ def bubble_chart():
     data = get_genre_distribution(df)
     return jsonify(data)
 
+# @app.route('/pcp', methods=['GET'])
+# def pcp():
+#     features = ["in_spotify_playlists", "in_apple_playlists", "in_deezer_playlists"]
+ 
+#     return jsonify(temp[features].to_json(orient='records'))
+
 @app.route('/pcp', methods=['POST'])
 def pcp():
     platform = request.get_json().get('platform')
     if platform == 'playlist':
-        features = ["in_spotify_playlists", "in_apple_playlists", "in_deezer_playlists"]
+        features = ["in_spotify_playlists", "in_apple_playlists", "in_deezer_playlists", "cluster"]
     elif platform == 'chart':
-        features = ["in_spotify_charts", "in_apple_charts", "in_deezer_charts", "in_shazam_charts"]
+        features = ["in_spotify_charts", "in_apple_charts", "in_deezer_charts", "in_shazam_charts", "cluster"]
     
-    return jsonify(temp[features].to_json(orient='records'))
+    return jsonify(temp[features].to_dict(orient='records'))
+    # return jsonify(temp[features].to_json(orient='records'))
 
 @app.route('/get_percentage', methods=['GET'])
 def get_percentage():
