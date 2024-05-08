@@ -53,7 +53,7 @@ export async function createTop30BarChart() {
         .attr("y", d => y(d.streams))
         .attr("width", x.bandwidth())
         .attr("height", d => height - y(d.streams))
-        .attr("fill", "#69b3a2");  // You can change bar color here if needed
+        .attr("fill", "#1DB954");  // You can change bar color here if needed
 
     svg.append("text")
     .attr("x", width / 2)

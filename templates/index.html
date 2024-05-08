@@ -10,46 +10,52 @@
     />
     <link href="static/css/theme.css" rel="stylesheet" />
     <style>
-			
-			.legend {
-				font-family: 'Raleway', sans-serif;
-				fill: #333333;
-			}
-			
-			.tooltip {
-				fill: #333333;
-			}
-		</style>
+      .legend {
+        font-family: "Raleway", sans-serif;
+        fill: #333333;
+      }
+
+      .tooltip {
+        fill: #333333;
+      }
+    </style>
   </head>
 
   <body>
-      <nav class="navbar navbar-expand-lg navbar-custom">
-        <div class="container-fluid">
-          <!-- Spotify logo and dashboard name -->
-          <a class="navbar-brand" href="#">
-            <img
-              src="static/img/logo_black.png"
-              alt="Spotify Logo"
-              width="30"
-              height="30"
-              class="d-inline-block align-top"
-            />
-            Spotify Dashboard
-          </a>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+      <div class="container-fluid">
+        <!-- Spotify logo and dashboard name -->
+        <a class="navbar-brand" href="#">
+          <img
+            src="static/img/logo_black.png"
+            alt="Spotify Logo"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+          />
+          Spotify Dashboard
+        </a>
 
-          <!-- Placeholder for right-aligned dropdowns -->
-          <div class="d-flex justify-content-end">
-            <!-- Placeholder content -->
-          </div>
+        <!-- Placeholder for right-aligned dropdowns -->
+        <div class="d-flex justify-content-end">
+          <!-- Placeholder content -->
         </div>
-      </nav>
-      <div>         
-        <div id="barChart"> </div>
-        <!-- <div id="keyDonutChart"> </div> -->
-        <div id="modesPieChart"> </div>
-        
-        <div id="radarChart"> </div>
       </div>
+    </nav>
+    <div>
+      <div id="barChart"></div>
+      <!-- <div id="keyDonutChart"> </div> -->
+      <div id="modesPieChart"></div>
+
+      <div id="radarChart"></div>
+      <div id="treemap"></div>
+      <div id="bubbleChart"></div>
+      <select id="dataSelect">
+        <option value="playlist">Playlist</option>
+        <option value="charts">Charts</option>
+      </select>
+      <div id="pcp"></div>
+    </div>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script
