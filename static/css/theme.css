@@ -22,9 +22,8 @@ body {
 }
 
 .card-custom {
-    background-color: var(--spotify-black); 
-    /* background-color: #292929;  */
-    /* border: 1px solid #333333;  */
+    background-color: var(--spotify-black); /* Slightly lighter than the body background */
+    /* border: 1px solid #333333; Subtle border for distinction */
     color: var(--spotify-white);
 }
 
