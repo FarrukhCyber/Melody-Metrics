@@ -96,15 +96,22 @@ def bubble_chart():
     data = get_genre_distribution(df)
     return jsonify(data)
 
+# @app.route('/pcp', methods=['GET'])
+# def pcp():
+#     features = ["in_spotify_playlists", "in_apple_playlists", "in_deezer_playlists"]
+ 
+#     return jsonify(temp[features].to_json(orient='records'))
+
 @app.route('/pcp', methods=['POST'])
 def pcp():
     platform = request.get_json().get('platform')
     if platform == 'playlist':
-        features = ["in_spotify_playlists", "in_apple_playlists", "in_deezer_playlists"]
+        features = ["in_spotify_playlists", "in_apple_playlists", "in_deezer_playlists", "cluster"]
     elif platform == 'chart':
-        features = ["in_spotify_charts", "in_apple_charts", "in_deezer_charts", "in_shazam_charts"]
+        features = ["in_spotify_charts", "in_apple_charts", "in_deezer_charts", "in_shazam_charts", "cluster"]
     
-    return jsonify(temp[features].to_json(orient='records'))
+    return jsonify(temp[features].to_dict(orient='records'))
+    # return jsonify(temp[features].to_json(orient='records'))
 
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
