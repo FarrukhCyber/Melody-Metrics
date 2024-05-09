@@ -1,15 +1,26 @@
-async function fetchBubbleData() {
-    const response = await fetch("/bubblechart");
-    const data = await response.json();
-    return data;
+async function fetchBubbleData(columnName, filters) {
+    // const response = await fetch("/bubblechart");
+    // const data = await response.json();
+    // return data;
+    const response = await fetch("/bubblechart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({columnName: columnName, filters: filters }),
+      });
+      const data = await response.json();
+      console.log("CHECK:", data);
+      return data;
 }
 
 
-export async function createBubbleChart() {
-    const data = await fetchBubbleData();
+export async function createBubbleChart(columnName=NaN, filters=NaN) {
+    const data = await fetchBubbleData(columnName, filters);
     const width = 450; // Width of the SVG
     const height = 320; // Height of the SVG
 
+    d3.select("#bubbleChart").select("svg").remove();
     const svg = d3.select('#bubbleChart').append('svg')
         .attr('width', width)
         .attr('height', height);

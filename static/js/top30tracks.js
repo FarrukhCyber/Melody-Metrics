@@ -18,6 +18,7 @@ export async function createTop30BarChart() {
         width = 700 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
 
+    d3.select("#barChart").select("svg").remove();    
     // Append the svg object to the body of the page
     const svg = d3.select("#barChart").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -84,7 +85,6 @@ export async function createTop30BarChart() {
             // Update the global state with the list of selected songs
             if(selectedSongs.length == 5) {
                 console.log("SelectedSongs: ", selectedSongs)
-                // console.log("WORKED:", TEST)
                 globalState.setFilters("track_name", selectedSongs);
             }
         });

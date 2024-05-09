@@ -1,12 +1,22 @@
 // Fetch the mode distribution from the Flask backend
-async function fetchPieChartData() {
-  const response = await fetch("/modes");
+async function fetchPieChartData(columnName, filters) {
+  // const response = await fetch("/modes");
+  // const data = await response.json();
+  // return data;
+  const response = await fetch("/modes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({columnName: columnName, filters: filters }),
+  });
   const data = await response.json();
+  console.log("CHECK:", data);
   return data;
 }
 
-export async function createModesPieChart() {
-  const data = await fetchPieChartData();
+export async function createModesPieChart(columnName=NaN, filters=NaN) {
+  const data = await fetchPieChartData(columnName, filters);
   console.log("In createModesPieChart, Data:", data)
 
   // set the dimensions and margins of the graph
@@ -17,6 +27,7 @@ export async function createModesPieChart() {
   // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
   const radius = Math.min(width, height) / 2 - margin;
 
+  d3.select("#modesPieChart").select("svg").remove();
   // append the svg object to the div called 'my_dataviz'
   const svg = d3
     .select("#modesPieChart")

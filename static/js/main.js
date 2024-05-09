@@ -8,19 +8,40 @@ import { createParallelCoordinatesPlot } from './pcp.js'
 import { drawPercentage } from './percentage.js'
 import { globalState } from "./globalState.js";
 
+
+let platform = 'playlist'
+
 function renderPlots() {
     createTop30BarChart()
     createModesPieChart()
     createRadarChart()
     createTreemap()
     createBubbleChart()
-    createParallelCoordinatesPlot('playlist')
+    createParallelCoordinatesPlot(NaN, NaN, platform )
     drawPercentage()
 }
 
 
-function updatePlots(columnName, filters) {
+function updatePlots(columnName, filters, wasReset) {
+    console.log("INSIDE UPDATE PLOT")
     console.log("PASSED:", filters, columnName)
+
+    // for reset
+    if (wasReset) {
+        console.log("inside reset check")
+        renderPlots()
+    }
+    else {
+
+        // For interactivity with barplot
+        createModesPieChart(columnName, filters)
+        createTreemap(columnName, filters)
+        createBubbleChart(columnName, filters)
+        createParallelCoordinatesPlot(columnName, filters, platform)
+        createRadarChart(columnName, filters)
+    }
+
+
 }
 
 

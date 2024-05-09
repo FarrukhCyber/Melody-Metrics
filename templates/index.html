@@ -29,6 +29,7 @@
             <span class="dashboard-title">Dashboard Name</span>
         </div>
         <div class="navbar-section">
+            <button id="resetButton" class="reset-button">Reset</button>
             <input type="date" id="startDate" class="date-input">
             <input type="date" id="endDate" class="date-input">
             <select id="bpmSelector" class="bpm-selector">
@@ -80,7 +81,12 @@
             </div>
         </div>
     </div>
-
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="module" src="{{ url_for('static', filename='js/main.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         async function fetchSongCount() {
             const response = await fetch('/song_count');
@@ -130,14 +136,16 @@
             }, blinkSpeed / 2);  // Divide by 2 because the interval controls the full cycle (hide and show)
         }
     </script>
-
+    <script type="module">
+        import { globalState } from '/static/js/globalState.js';
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('resetButton').addEventListener('click', () => {
+                globalState.reset();
+                console.log("Global state has been reset.");
+            });
+        });
     </script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script type="module" src="{{ url_for('static', filename='js/main.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 </html>

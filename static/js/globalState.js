@@ -1,6 +1,7 @@
 export const globalState = {
     filters: new Set(),
     columnName: "",
+    wasReset: false,  // Property to track if a reset has occurred
     observers: [],
 
     //===================== DONT NEED TO CHANGE THIS =======================
@@ -16,7 +17,7 @@ export const globalState = {
     
     // Notify all observers about the change
     notifyObservers: function() {
-        this.observers.forEach(observer => observer(this.columnName, this.filters));
+        this.observers.forEach(observer => observer(this.columnName, Array.from(this.filters), this.wasReset));
     },
     
     // =====================================================================
@@ -28,5 +29,14 @@ export const globalState = {
         this.columnName = name
         this.notifyObservers();
     },
+
+    reset() {
+        console.log('RESET CALLED')
+        this.filters.clear();
+        this.columnName = '';
+        this.wasReset = true;  // Indicate that a reset has occurred
+        this.notifyObservers();
+        this.wasReset = false;  // Reset the flag after notifying
+    }
 
 };

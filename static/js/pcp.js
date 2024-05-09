@@ -1,20 +1,20 @@
-async function fetchPCPData(platform) {
+async function fetchPCPData(columnName, filters, platform) {
     // console.log("Sending K_value:", k_value);
     const response = await fetch("/pcp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({platform: platform }),
+      body: JSON.stringify({columnName: columnName, filters: filters, platform: platform }),
     });
     const data = await response.json();
     console.log("CHECK:", data);
     return data;
 }
 
-export async function createParallelCoordinatesPlot(platform) {
+export async function createParallelCoordinatesPlot(columnName, fil, platform) {
     console.log("creating PCP");
-    var data = await fetchPCPData(platform);
+    var data = await fetchPCPData(columnName, fil, platform);
 
     if (platform == 'playlist'){
         var orderedDimensions = ['in_spotify_playlists', 'in_apple_playlists', 'in_deezer_playlists'];
@@ -23,6 +23,9 @@ export async function createParallelCoordinatesPlot(platform) {
         var orderedDimensions = ['in_spotify_charts', 'in_apple_charts', 'in_deezercharts', 'in_shazam_charts'];
 
     }
+
+    console.log("platform:", platform)
+    console.log("orderedDimensions:", orderedDimensions)
 
     const width = 650,
     height = 200;
