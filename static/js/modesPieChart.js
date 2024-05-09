@@ -104,7 +104,16 @@ export async function createModesPieChart(columnName=NaN, filters=NaN) {
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-  const color = d3.scaleOrdinal().range(d3.schemeSet2);
+    const colorMapping = {
+        "Major": "#fcb714", // yello
+        "Minor": "#1db954" // Green
+    };
+      
+    const color = d3.scaleOrdinal()
+                .domain(Object.keys(colorMapping))
+                .range(Object.values(colorMapping));
+
+//   const color = d3.scaleOrdinal().range(d3.schemeSet2);
   const pie = d3.pie().value(function (d) { return d[1]; });
   let data_ready = pie(Object.entries(data));
 
