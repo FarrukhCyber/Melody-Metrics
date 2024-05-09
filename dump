@@ -1,0 +1,118 @@
+/* Spotify color theme */
+
+/* .form-label {
+    margin-bottom: 0; 
+}
+.dropdown-menu-bpm {
+    max-height: 200px;
+    overflow-y: auto;
+}
+#blinkingCircle {
+    vertical-align: middle;
+    margin-left: 10px;
+} */
+
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    margin-bottom: 0px; 
+}
+
+.navbar-section {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-title {
+    margin-right: 20px;
+}
+
+.date-input, .bpm-selector {
+    margin-left: 10px;
+    padding: 5px;
+    color: #333;
+}
+
+.blinker {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 10px;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+/* Main Content Layout */
+.main-content {
+    display: flex;
+    padding: 8px;
+    margin-top: 0;
+}
+
+.treemap-container {
+    flex: 1;
+    padding: 10px;
+}
+
+.visualization-container {
+    flex: 4;
+    padding: 10px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.card {
+    /* background:  #191414; */
+    background:  #0d1117;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex: 1;
+    margin: 0 5px;
+    text-align: center;
+    color: white;  /* Change text color to white */
+}
+
+/* Second Row Cards */
+#bubbleChart{
+    flex: 1.5;  /* Smaller card */
+}
+
+#barChart{
+    flex: 2.5;  /* Larger card */
+}
+
+/* Third Row Cards */
+#pcp{
+    flex: 2.5;  /* Larger card */
+}
+
+#radarChart {
+    flex: 1.5;  /* Smaller card */
+}

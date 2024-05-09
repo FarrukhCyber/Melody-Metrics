@@ -1,70 +1,140 @@
-/* Spotify color theme */
-:root {
-    --spotify-green: #1DB954;
-    --spotify-black: #191414;
-    --spotify-white: #FFFFFF;
-}
-
-body {
-    background-color: var(--spotify-black); /* Set background color for the whole page */
-}
-
-.navbar-custom {
-    background-color: var(--spotify-green);
-}
-
-.navbar-brand, .navbar-nav .nav-link {
-    color: var(--spotify-white);
-}
-
-.navbar-brand:hover, .navbar-nav .nav-link:hover {
-    color: var(--spotify-white);
-}
-
-.card-custom {
-    background-color: var(--spotify-black); /* Slightly lighter than the body background */
-    /* border: 1px solid #333333; Subtle border for distinction */
-    color: var(--spotify-white);
-}
-
-.card-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .svg-container {
-    display: block; /* Removes extra space below the SVG */
-    margin: auto; /* Horizontally centers the SVG in the container if it's a block element */
-  }
-
-  .card {
-    background-color: #1DB954;  /* Spotify Green */
+/* Basic styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     color: white;
-    padding: 20px;
-    margin: 20px;
-    font-size: 28px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.card h1 {
-    margin: 10px 0;
-    font-size: 48px;  /* Larger font size for the count */
-    font-weight: bold;
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    /* background: #333; */
+    background:  #191414;
 }
-.card p {
-    margin: 4px 0;
-    font-size: 20px; /* Smaller font size for the label */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    color: white;
+    padding: 10px 20px;
 }
-.form-label {
-    margin-bottom: 0; /* Removes the default bottom margin from the label */
-}
-.dropdown-menu-bpm {
-    max-height: 200px;
-    overflow-y: auto;
-}
-#blinkingCircle {
-    vertical-align: middle;
+
+.date-input, .bpm-selector {
     margin-left: 10px;
+    padding: 5px;
+}
+
+.blinker {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 10px;
+    animation: blinker 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+.main-content {
+    display: flex;
+    padding: 5px;
+    margin-top: 0;
+}
+
+.column {
+    flex: 1;  /* Each of the first two columns takes up 1/5 of the space */
+    margin: 5px;
+}
+
+.column2 {
+    flex: 0.5;  /* Each of the first two columns takes up 1/5 of the space */
+    margin: 5px;
+}
+
+.column.wide {
+    flex: 4;  /* The rightmost column takes up 3/5 of the space */
+    margin: 5px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    background: #212121;
+    padding: 10px 20px 20px 20px;  /* Decreased top padding */
+    margin: 10px;
+    flex: 1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    color: white;  /* Change text color to white */
+}
+
+
+
+#songCount, #sonorityIndex {
+    font-size: 35px; /* Larger font size */
+    font-weight: bold; /* Optional: makes the font bold */
+    color: #fcb714;
+}
+
+/* first  Row Cards */
+#bubbleChart{
+    flex: 1.5;  /* Smaller card */
+}
+
+#barChart{
+    flex: 2.5;  /* Larger card */
+}
+
+/* second Row Cards */
+#pcp{
+    flex: 2.5;  /* Larger card */
+}
+
+#radarChart {
+    flex: 1.5;  /* Smaller card */
+}
+
+#pcp {
+    display: flex;
+    align-items: center; /* Vertically center the contents */
+}
+
+#pcp > * {
+    margin-right: 10px; /* Add some spacing between the elements */
+}
+
+/* Styles for the dropdown */
+#pcpDataSelect {
+    background-color: #333; /* Set the background color */
+    color: #fcb714; /* Set the text color */
+    padding: 5px; /* Add some padding for better appearance */
+}
+
+/* Styles for the dropdown options */
+#pcpDataSelect option {
+    background-color: #222; /* Set the background color for options */
+    color: #ccc; /* Set the text color for options */
+}
+
+/* Change the background color of the selected text */
+.date-input option::selection {
+    background-color: #fcb714; /* Adjust the color as desired */
+}
+
+/* Change the text color of the selected text */
+.date-input option::-moz-selection {
+    color: #333; /* Adjust the color as desired */
+}
+
+.date-input {
+    color: black; /* Replace #your-desired-color with the hex code or color name you want */
 }

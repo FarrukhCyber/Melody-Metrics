@@ -2,7 +2,7 @@ export async function drawPercentage() {
     const response = await fetch('/get_percentage');
     const { percentage } = await response.json();
 
-    const width = 140, height = 140, twoPi = 2 * Math.PI;
+    const width = 200, height = 200, twoPi = 2 * Math.PI;
     const progress = percentage / 100;
 
     const arc = d3.arc()
