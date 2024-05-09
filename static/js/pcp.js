@@ -24,14 +24,15 @@ export async function createParallelCoordinatesPlot(platform) {
 
     }
 
-    const width = 750,
-    height = 450;
-    const margin = { top: 50, right: 80, bottom: 60, left: 60 };
+    const width = 650,
+    height = 200;
+    const margin = { top: 60, right: 60, bottom: 20, left: 80 };
 
     let isBrushing = false;
 
     // append the svg object to the body of the page
-    d3.select("#pcp").html("");
+    // d3.select("#pcp").html("");
+    d3.select("#pcp").select("svg").remove();
     var svg = d3
     .select("#pcp")
     .append("svg")

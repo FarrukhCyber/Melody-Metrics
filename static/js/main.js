@@ -8,12 +8,13 @@ import { createParallelCoordinatesPlot } from './pcp.js'
 import { drawPercentage } from './percentage.js'
 
 
-createKeysPieChart()
+
 createTop30BarChart()
 createModesPieChart()
 createRadarChart()
 createTreemap()
 createBubbleChart()
-// getData('playlists')
-createParallelCoordinatesPlot('chart')
+
+createParallelCoordinatesPlot('playlist')
 drawPercentage()
+

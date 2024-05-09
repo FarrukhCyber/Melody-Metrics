@@ -10,9 +10,9 @@ export async function createModesPieChart() {
   console.log("In createModesPieChart, Data:", data)
 
   // set the dimensions and margins of the graph
-  const width = 450,
-    height = 450,
-    margin = 40;
+  const width = 200,
+    height = 200,
+    margin = 5;
 
   // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
   const radius = Math.min(width, height) / 2 - margin;
@@ -51,8 +51,8 @@ export async function createModesPieChart() {
     .attr("fill", function (d) {
       return color(d.data[0]);
     })
-    .attr("stroke", "black")
-    .style("stroke-width", "2px")
+    // .attr("stroke", "black")
+    // .style("stroke-width", "1px")
     .style("opacity", 0.7);
 
   // Now add the annotation. Use the centroid method to get the best coordinates
@@ -61,11 +61,92 @@ export async function createModesPieChart() {
     .data(data_ready)
     .join("text")
     .text(function (d) {
-      return d.data[0];
+      let percentage = (d.data[1] / d3.sum(data_ready, d => d.data[1])) * 100;
+      return `${d.data[0]}:  ${percentage.toFixed(1)}%`;
     })
     .attr("transform", function (d) {
       return `translate(${arcGenerator.centroid(d)})`;
     })
     .style("text-anchor", "middle")
-    .style("font-size", 17);
+    .style("font-size", 10);
 }
+
+// export async function createModesPieChart() {
+//   const data = await fetchPieChartData();
+//   console.log("In createModesPieChart, Data:", data)
+
+//   // Adjust the width to create space for the legend
+//   const width = 200,  // Increased width to accommodate legend
+//         height = 200,
+//         margin = 5,
+//         legendRectSize = 10,  // Size of the legend marker
+//         legendSpacing = 4  // Spacing between legend items
+  
+//   var legendOffset = 10  // Horizontal offset of the legend from the chart
+
+//   const radius = Math.min(width, height) / 2 - margin;
+
+//   const svg = d3
+//     .select("#modesPieChart")
+//     .append("svg")
+//     .attr("width", width)
+//     .attr("height", height)
+//     .append("g")
+//     .attr("transform", `translate(${radius + margin}, ${height / 2})`);
+
+//   const color = d3.scaleOrdinal().range(d3.schemeSet2);
+
+//   const pie = d3.pie().value(function (d) {
+//     return d[1];
+//   });
+//   const data_ready = pie(Object.entries(data));
+
+//   const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
+
+//   svg
+//     .selectAll("mySlices")
+//     .data(data_ready)
+//     .join("path")
+//     .attr("d", arcGenerator)
+//     .attr("fill", function (d) { return color(d.data[0]); })
+//     .style("opacity", 0.7);
+
+//   svg
+//     .selectAll("mySlices")
+//     .data(data_ready)
+//     .join("text")
+//     .text(function (d) {
+//       let percentage = (d.data[1] / d3.sum(data_ready, d => d.data[1])) * 100;
+//       return `${percentage.toFixed(1)}%`;
+//     })
+//     .attr("transform", function (d) {
+//       return `translate(${arcGenerator.centroid(d)})`;
+//     })
+//     .style("text-anchor", "middle")
+//     .style("font-size", 8);
+
+//   // Add legend to the right of the chart
+//   const legend = svg.append("g")
+//     .attr("transform", `translate(${radius * 2 + legendOffset}, ${-height / 2 + margin})`);
+
+//   legend.selectAll("rect")
+//     .data(data_ready)
+//     .enter()
+//     .append("rect")
+//     .attr("x", -15)
+//     .attr("y", function(d, i) { return i * (legendRectSize + legendSpacing); })
+//     .attr("width", legendRectSize)
+//     .attr("height", legendRectSize)
+//     .style("fill", function(d) { return color(d.data[0]); });
+
+//   legend.selectAll("text")
+//     .data(data_ready)
+//     .enter()
+//     .append("text")
+//     .attr("x", legendRectSize + 4)
+//     .attr("y", function(d, i) { return i * (legendRectSize + legendSpacing) + legendRectSize/2; })
+//     .text(function(d) { return d.data[0]; })
+//     .style("font-size", "10px")
+//     .style("fill", "white")
+//     .attr("alignment-baseline", "middle");
+// }
