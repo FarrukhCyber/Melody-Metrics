@@ -162,7 +162,7 @@ export async function createModesPieChart(columnName=NaN, filters=NaN) {
               }
               data[d.data[0]] = d3.sum(Object.values(originalData));
               updatePieChart();
-              globalState.setFilters('mode', [d.data[0]]);  // Set selected mode on click
+              globalState.setFilters('mode', [d.data[0]]);  // Set selected mode on click [[pop]] [[d, a ,sdfsdf]]
           } else {
               // Reset data to original to show all modes again
               data = {...originalData};
