@@ -12,7 +12,7 @@ async function fetchPCPData(columnName, filters, platform) {
     return data;
 }
 
-export async function createParallelCoordinatesPlot(columnName, fil, platform) {
+export async function createParallelCoordinatesPlot(columnName, fil, platform='playlist') {
     console.log("creating PCP");
     var data = await fetchPCPData(columnName, fil, platform);
 
@@ -20,7 +20,7 @@ export async function createParallelCoordinatesPlot(columnName, fil, platform) {
         var orderedDimensions = ['in_spotify_playlists', 'in_apple_playlists', 'in_deezer_playlists'];
     }
     else{
-        var orderedDimensions = ['in_spotify_charts', 'in_apple_charts', 'in_deezercharts', 'in_shazam_charts'];
+        var orderedDimensions = ['in_shazam_charts', 'in_spotify_charts', 'in_deezer_charts', 'in_apple_charts', ];
 
     }
 
@@ -120,6 +120,19 @@ export async function createParallelCoordinatesPlot(columnName, fil, platform) {
     svg.selectAll(".line").transition().duration(500).attr("d", path); // Redraw the lines based on the updated axis positions
     }
 
+    // Draw the lines
+    svg .selectAll("myPath")
+        .data(data)
+        .enter()
+        .append("path")
+        .attr("class", function (d) {
+            return "line " + d.cluster;
+        }) // 2 class for each line: 'line' and the group name
+        .attr("d", path)
+        .style("fill", "none")
+        .style("stroke", (d) => color(d.cluster))
+        .style("opacity", 0.5);
+
     // Draw the axis with drag behavior
     svg
     .selectAll(".axis")
@@ -147,9 +160,9 @@ export async function createParallelCoordinatesPlot(columnName, fil, platform) {
     )
     .append("text")
     .style("text-anchor", "start")
-    .attr("y", -4)
+    .attr("y", -14)
     .attr("x", -50)
-    .attr("transform", "rotate(-10)")
+    // .attr("transform", "rotate(-10)")
     .text(function (d) {
         return d;
     })
@@ -234,17 +247,17 @@ export async function createParallelCoordinatesPlot(columnName, fil, platform) {
 
  
 
-    // Draw the lines
-    svg
-    .selectAll("myPath")
-    .data(data)
-    .enter()
-    .append("path")
-    .attr("class", function (d) {
-        return "line " + d.cluster;
-    }) // 2 class for each line: 'line' and the group name
-    .attr("d", path)
-    .style("fill", "none")
-    .style("stroke", (d) => color(d.cluster))
-    .style("opacity", 0.5);
+    // // Draw the lines
+    // svg
+    // .selectAll("myPath")
+    // .data(data)
+    // .enter()
+    // .append("path")
+    // .attr("class", function (d) {
+    //     return "line " + d.cluster;
+    // }) // 2 class for each line: 'line' and the group name
+    // .attr("d", path)
+    // .style("fill", "none")
+    // .style("stroke", (d) => color(d.cluster))
+    // .style("opacity", 0.5);
 }

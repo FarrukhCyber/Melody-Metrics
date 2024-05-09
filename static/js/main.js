@@ -9,7 +9,7 @@ import { drawPercentage } from './percentage.js'
 import { globalState } from "./globalState.js";
 
 
-let platform = 'playlist'
+// var platform = 'playlist'
 
 function renderPlots() {
     createTop30BarChart()
@@ -17,12 +17,12 @@ function renderPlots() {
     createRadarChart()
     createTreemap()
     createBubbleChart()
-    createParallelCoordinatesPlot(NaN, NaN, platform )
+    createParallelCoordinatesPlot(NaN, NaN, 'playlist' )
     drawPercentage()
 }
 
 
-function updatePlots(columnName, filters, wasReset) {
+function updatePlots(columnName, filters, wasReset, platform) {
     console.log("INSIDE UPDATE PLOT")
     console.log("PASSED:", filters, columnName)
 
@@ -31,6 +31,13 @@ function updatePlots(columnName, filters, wasReset) {
         console.log("inside reset check")
         renderPlots()
         return
+    }
+
+    // for handling charts and playlist of pcp
+    if(columnName == 'pcp') {
+        // platform = filters[0][0][0] // dont know what is going on
+        console.log("platform in updatePlots:", platform)
+        createParallelCoordinatesPlot(NaN, NaN, platform)
     }
 
 
