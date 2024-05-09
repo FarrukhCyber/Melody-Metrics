@@ -6,13 +6,25 @@ import { createTreemap } from './treemap.js'
 import { createBubbleChart } from './bubbleChart.js'
 import { createParallelCoordinatesPlot } from './pcp.js'
 import { drawPercentage } from './percentage.js'
+import { globalState } from "./globalState.js";
+
+function renderPlots() {
+    createTop30BarChart()
+    createModesPieChart()
+    createRadarChart()
+    createTreemap()
+    createBubbleChart()
+    createParallelCoordinatesPlot('playlist')
+    drawPercentage()
+}
 
 
-createTop30BarChart()
-createModesPieChart()
-createRadarChart()
-createTreemap()
-createBubbleChart()
-createParallelCoordinatesPlot('playlist')
-drawPercentage()
-// getData('playlists')
+function updatePlots(columnName, filters) {
+    console.log("PASSED:", filters, columnName)
+}
+
+
+globalState.subscribe(updatePlots);
+renderPlots()
+
+// export const TEST = {"hello": 12} 

@@ -1,3 +1,6 @@
+import { globalState } from "./globalState.js";
+// import {globalState} from './main.js'
+
 async function fetchTop30() {
     const response = await fetch("/top30");
     const data = await response.json();
@@ -7,6 +10,9 @@ async function fetchTop30() {
 
 export async function createTop30BarChart() {
     const data = await fetchTop30();
+    let selectedSongs = [];
+
+
     // const margin = { top: 50, right: 30, bottom: 120, left: 100 },
     const margin = { top: 10, right: 10, bottom: 120, left: 80 },
         width = 700 - margin.left - margin.right,
@@ -54,7 +60,34 @@ export async function createTop30BarChart() {
         .attr("y", d => y(d.streams))
         .attr("width", x.bandwidth())
         .attr("height", d => height - y(d.streams))
-        .attr("fill", "#1DB954");  // You can change bar color here if needed
+        .attr("fill", "#1DB954")  // You can change bar color here if needed
+        .on("click", function(event, d) {
+            const songName = d.track_name;
+
+                // Check if the song is already selected
+            const isSelected = selectedSongs.includes(songName);
+            d3.select(this).attr("fill", isSelected ? "#1DB954" : "orange");
+
+            if (isSelected) {
+                // If the song is already selected, remove it from the list
+                selectedSongs = selectedSongs.filter(song => song !== songName);
+            } else {
+                // If the song is not selected, add it to the list
+                if (selectedSongs.length < 5) {
+                    selectedSongs.push(songName);
+                } else {
+                    // If the maximum of 5 songs is reached, alert the user
+                    alert("You can only select up to 5 songs.");
+                }
+            }
+
+            // Update the global state with the list of selected songs
+            if(selectedSongs.length == 5) {
+                console.log("SelectedSongs: ", selectedSongs)
+                // console.log("WORKED:", TEST)
+                globalState.setFilters("track_name", selectedSongs);
+            }
+        });
 
     svg.append("text")
     .attr("x", width / 2)
