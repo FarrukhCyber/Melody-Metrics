@@ -96,6 +96,7 @@ body, html {
     flex: 1;
     margin: 0 5px;
     text-align: center;
+    color: white;  /* Change text color to white */
 }
 
 /* Second Row Cards */
