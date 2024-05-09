@@ -58,6 +58,17 @@ function updatePlots(columnName, filters, wasReset) {
         return
     }
 
+    // For interactivity with MODES pieChart
+    if (columnName == 'key') {
+        console.log("inside key section of updatePlots")
+        createTop30BarChart(columnName, filters)
+        createModesPieChart(columnName, filters)
+        createBubbleChart(columnName, filters)
+        createParallelCoordinatesPlot(columnName, filters, platform)
+        createRadarChart(columnName, filters)
+        return
+    }
+
 
 
 }

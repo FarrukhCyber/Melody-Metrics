@@ -38,6 +38,10 @@ export const globalState = {
         this.wasReset = true;  // Indicate that a reset has occurred
         this.notifyObservers();
         this.wasReset = false;  // Reset the flag after notifying
-    }
+    },
+
+    getFilters: function(name) {
+        return Array.from(this.filters).filter(filter => filter.includes(name));
+    },
 
 };

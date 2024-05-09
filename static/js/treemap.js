@@ -1,3 +1,5 @@
+import { globalState } from "./globalState.js";
+
 async function fetchKeyDistr(columnName, filters) {
     // const response = await fetch("/treemap");
     // const data = await response.json();
@@ -14,11 +16,13 @@ async function fetchKeyDistr(columnName, filters) {
       return data;
 }
 
-export async function createTreemap(columnName, filters) {
+export async function createTreemap(columnName=NaN, filters=NaN) {
+    console.log("In the start of Treemap, ColumnName:", columnName, " filters:", filters)
     const data = await fetchKeyDistr(columnName, filters);
     const width = 200;  // Overall width of the SVG
     const height = 650; // Overall height of the SVG
     // data.sort((a, b) => b.count - a.count); // Sort by count descending
+
 
     d3.select("#treemap").select("svg").remove();
     const svg = d3.select('#treemap').append('svg')
@@ -39,7 +43,12 @@ export async function createTreemap(columnName, filters) {
             .attr('height', barHeight) // height based on proportion
             .attr('fill', '#1DB954')
             .attr('stroke', 'black') // Dark stroke for clear boundaries
-            .attr('stroke-width', '2'); // Thickness of the stroke
+            .attr('stroke-width', '2') // Thickness of the stroke
+            .on('click', () => {
+                console.log("Clicked Key:", d.key)
+                globalState.setFilters('key', [d.key]);  // Set selected mode on click  // Set the selected key in global state
+                createTreemap('key', [[d.key]]);  // Recreate the treemap showing only the selected key
+            });
 
         svg.append('text')
             .attr('x', width / 2)
