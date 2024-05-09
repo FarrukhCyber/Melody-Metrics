@@ -83,10 +83,10 @@
             <div class="card-container">
                 <div class="card" id="pcp">
                     <p>Parallel Coordinates Plot</p>
-                    <select id="pcpDataSelect" data-placeholder="Select an option">
+                    <!-- <select id="pcpDataSelect" data-placeholder="Select an option">
                         <option value="playlist">Playlist</option>
                         <option value="chart">Charts</option>
-                    </select>
+                    </select> -->
                 </div>
 
                 <div class="card" id="radarChart">Radar Plot </div>
@@ -100,22 +100,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        async function fetchSongCount() {
-            const response = await fetch('/song_count');
-            const data = await response.json();
-            // console.log()
-            document.getElementById('songCount').textContent = data.song_count.toLocaleString();  // Format number with commas
-        }
+        // async function fetchSongCount() {
+        //     const response = await fetch('/song_count');
+        //     const data = await response.json();
+        //     // console.log()
+        //     document.getElementById('songCount').textContent = data.song_count.toLocaleString();  // Format number with commas
+        // }
 
-        fetchSongCount();  // Call the function to update the count on load
-        async function fetchSonorityIndex() {
-            const response = await fetch('/sonority_index');
-            const data = await response.json();
-            // console.log('data')
-            document.getElementById('sonorityindex').textContent = data.index.toLocaleString();  // Format number with commas
-        }
+        // fetchSongCount();  // Call the function to update the count on load
+        // async function fetchSonorityIndex() {
+        //     const response = await fetch('/sonority_index');
+        //     const data = await response.json();
+        //     // console.log('data')
+        //     document.getElementById('sonorityindex').textContent = data.index.toLocaleString();  // Format number with commas
+        // }
 
-        fetchSonorityIndex();
+        // fetchSonorityIndex();
 
         document.addEventListener('DOMContentLoaded', function() {
         const bpmValues = [65, 67, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 160, 161, 162, 163, 164, 165, 166, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 186, 188, 189, 192, 196, 198, 200, 202, 204, 206];
