@@ -17,17 +17,17 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #222;
+    background-color: #1DB954;
     color: white;
     padding: 10px 20px;
 }
 
-.date-input, .bpm-selector {
+.date-input{
     margin-left: 10px;
     padding: 5px;
 }
 
-.blinker {
+/* .blinker {
     width: 20px;
     height: 20px;
     background-color: red;
@@ -35,11 +35,11 @@ body, html {
     margin-left: 10px;
     animation: blinker 1s linear infinite;
     display: inline-block;
-}
-
+} */
+/* 
 @keyframes blinker {
     50% { opacity: 0; }
-}
+} */
 
 .main-content {
     display: flex;
@@ -150,4 +150,45 @@ body, html {
 }
 .reset-button:hover {
     background-color: #d32f2f;
+}
+
+
+.dropdown-scrollable {
+    max-height: 200px; /* Adjust based on preference */
+    overflow-y: auto;
+}
+
+.blinker {
+    animation: blinker 1s steps(1) infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+.bpm-selector {
+    width: auto; /* Adjust width as needed */
+    overflow-y: auto; /* Ensures the dropdown is scrollable */
+    max-height: 150px; /* Limits the height to make it scrollable */
+}
+
+
+
+/* Adjust layout of dropdown container */
+.dropdown-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Add margin to create space between date filter and BPM dropdown */
+}
+
+/* Make dropdown scrollable */
+.dropdown-menu {
+    max-height: 200px; /* Set maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.date-filter {
+    display: inline-flex; /* Use inline-flex to align items horizontally */
+    align-items: center; /* Align items vertically */
 }
