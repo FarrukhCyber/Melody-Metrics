@@ -1,6 +1,24 @@
-export async function drawPercentage() {
-    const response = await fetch('/get_percentage');
-    const { percentage } = await response.json();
+async function fetchPercentage(columnName, filters) {
+
+    const response = await fetch("/get_percentage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({columnName: columnName, filters: filters}),
+      });
+      const data = await response.json();
+      console.log("CHECK %:", data);
+      return data;
+}
+
+
+
+
+export async function drawPercentage(columnName=NaN, filters=NaN) {
+    // const percentage = await fetchPercentage(columnName, filters);
+    // const { percentage } = await response.json();
+    const {percentage} = await fetchPercentage(columnName, filters);
 
     const width = 200, height = 200, twoPi = 2 * Math.PI;
     const progress = percentage / 100;

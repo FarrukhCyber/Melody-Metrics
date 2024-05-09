@@ -184,46 +184,66 @@ def pcp():
     return jsonify(temp[features].to_dict(orient='records'))
     # return jsonify(temp[features].to_json(orient='records'))
 
-@app.route('/get_percentage', methods=['GET'])
+@app.route('/get_percentage', methods=['POST'])
 def get_percentage():
-    # columnName = request.get_json().get('columnName')
-    # filters = request.get_json().get('filters')
-    # print("In bubblechart: ", columnName, filters)
+    columnName = request.get_json().get('columnName')
+    filters = request.get_json().get('filters')
+    print("In bubblechart: ", columnName, filters)
     
-    # filtered_df = df
-    # if filters and columnName:
-    #     filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
+    filtered_df = df
+    if filters and columnName:
+        filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
-    # # Example calculation: find percentage of data above a certain threshold ======= perform ur calculations over here
-    # threshold = 5
-    # total_count = filtered_df.shape[0]
-    # filtered_count = filtered_df[filtered_df['value'] > threshold].shape[0]
-    # percentage = (filtered_count / total_count) * 100
+    total_count = df.shape[0]
+    percentage = (filtered_df.shape[0] / total_count) * 100
+    
+    print('percentage', percentage)
 
     # Return the calculated percentage
-    return jsonify({'percentage': 95})
+    return jsonify({'percentage': percentage})
 
-@app.route('/song_count', methods=['GET'])
+@app.route('/song_count', methods=['POST'])
 def song_count():
-    # Load your data
-    # df = pd.read_csv('./data/songs.csv')  # Assume your data file is named 'songs.csv'
+    columnName = request.get_json().get('columnName')
+    filters = request.get_json().get('filters')
+    print("In song_count: ", columnName, filters)
+    
+    filtered_df = df
+    if filters and columnName:
+        filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
 
     # # Count the songs (customize this if you need to filter the data)
-    # count = df.shape[0]
+    count = filtered_df.shape[0]
 
     # Return the count
-    return jsonify({'song_count': 800})
+    return jsonify({'song_count': count})
 
-@app.route('/sonority_index', methods=['GET'])
-def sonority_index():
-    # Load your data
-    # df = pd.read_csv('./data/songs.csv')  # Assume your data file is named 'songs.csv'
+@app.route('/duration', methods=['POST'])
+def song_duration():
+    columnName = request.get_json().get('columnName')
+    filters = request.get_json().get('filters')
+    print("In song_count: ", columnName, filters)
+    
+    print("df:\n", df)
+    filtered_df = df
+    if filters and columnName:
+        print("inside IF")
+        filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
+        
+    total_duration_ms = filtered_df['duration_ms'].sum()  # Summing up the 'duration_ms' values
+    print("total_duration", total_duration_ms)
+    total_songs = len(filtered_df)  # Total number of songs in the dataset
 
-    # # Count the songs (customize this if you need to filter the data)
-    # count = df.shape[0]
-    print('hi')
-    # Return the count
-    return jsonify({'index': 5.5})
+    # Calculating average duration per song in milliseconds
+    average_duration_ms = total_duration_ms / total_songs
+
+    # Converting average duration from milliseconds to minutes
+    average_duration_minutes = average_duration_ms / 1000 / 60
+    
+    
+
+    print("Average duration of songs:", average_duration_minutes, "minutes")
+    return jsonify({'duration': average_duration_minutes})
 
 
 

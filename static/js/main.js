@@ -7,6 +7,8 @@ import { createBubbleChart } from './bubbleChart.js'
 import { createParallelCoordinatesPlot } from './pcp.js'
 import { drawPercentage } from './percentage.js'
 import { globalState } from "./globalState.js";
+import { createSongCount } from './updateSongCount.js'
+import { createSongDuration } from './updateDuration.js'
 
 
 // var platform = 'playlist'
@@ -19,6 +21,8 @@ function renderPlots() {
     createBubbleChart()
     createParallelCoordinatesPlot(NaN, NaN, 'playlist' )
     drawPercentage()
+    createSongCount()
+    createSongDuration()
 }
 
 
@@ -49,6 +53,9 @@ function updatePlots(columnName, filters, wasReset, platform) {
         createBubbleChart(columnName, filters)
         createParallelCoordinatesPlot(columnName, filters, platform)
         createRadarChart(columnName, filters)
+        createSongCount(columnName, filters)
+        drawPercentage(columnName, filters)
+        createSongDuration(columnName, filters)
 
         return
     }
@@ -61,11 +68,14 @@ function updatePlots(columnName, filters, wasReset, platform) {
         createBubbleChart(columnName, filters)
         createParallelCoordinatesPlot(columnName, filters, platform)
         createRadarChart(columnName, filters)
+        createSongCount(columnName, filters)
+        drawPercentage(columnName, filters)
+        createSongDuration(columnName, filters)
 
         return
     }
 
-    // For interactivity with MODES pieChart
+    // For interactivity with key pieChart
     if (columnName == 'key') {
         console.log("inside key section of updatePlots")
         createTop30BarChart(columnName, filters)
@@ -73,6 +83,9 @@ function updatePlots(columnName, filters, wasReset, platform) {
         createBubbleChart(columnName, filters)
         createParallelCoordinatesPlot(columnName, filters, platform)
         createRadarChart(columnName, filters)
+        createSongCount(columnName, filters)
+        drawPercentage(columnName, filters)
+        createSongDuration(columnName, filters)
         return
     }
 
