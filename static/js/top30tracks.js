@@ -7,9 +7,10 @@ async function fetchTop30() {
 
 export async function createTop30BarChart() {
     const data = await fetchTop30();
-    const margin = { top: 50, right: 30, bottom: 120, left: 100 },
-        width = 600 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    // const margin = { top: 50, right: 30, bottom: 120, left: 100 },
+    const margin = { top: 10, right: 10, bottom: 120, left: 80 },
+        width = 400 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
 
     // Append the svg object to the body of the page
     const svg = d3.select("#barChart").append("svg")

@@ -24,8 +24,8 @@ export async function createParallelCoordinatesPlot(platform) {
 
     }
 
-    const width = 750,
-    height = 450;
+    const width = 700,
+    height = 250;
     const margin = { top: 50, right: 80, bottom: 60, left: 60 };
 
     let isBrushing = false;

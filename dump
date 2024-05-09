@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Visualization</title>
+    <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="navbar-section">
+            <span class="dashboard-title">Dashboard Name</span>
+        </div>
+        <div class="navbar-section">
+            <input type="date" id="startDate" class="date-input">
+            <input type="date" id="endDate" class="date-input">
+            <select id="bpmSelector" class="bpm-selector">
+                <!-- BPM Options -->
+            </select>
+            <div id="blinker" class="blinker"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Left Column for TreeMap -->
+        <aside class="treemap-container">
+            <div id="treeMap">
+                <!-- Placeholder for TreeMap -->
+                <p>Key TreeMap</p>
+            </div>
+        </aside>
+
+        <!-- Right Column for Other Visualizations -->
+        <div class="visualization-container">
+            <!-- First Row of Cards -->
+            <div class="card-container">
+                <div class="card">Total Songs <span id="totalSongs">0</span></div>
+                <div class="card">Sonority Index <span id="sonorityIndex">0.0</span></div>
+                <div class="card">Data Percentage <!-- Placeholder for Donut Chart --></div>
+                <div class="card">Modes Pie Chart <!-- Placeholder for Pie Chart --></div>
+            </div>
+
+            <!-- Second Row for Bubble Chart and Barplot -->
+            <div class="card-container">
+                <div class="card">Genre Bubble Chart <!-- Placeholder for Bubble Chart --></div>
+                <div class="card">Top Songs Barplot <!-- Placeholder for Barplot --></div>
+            </div>
+
+            <!-- Third Row for PCP and Radar Plot -->
+            <div class="card-container">
+                <div class="card">Parallel Coordinates Plot <!-- Placeholder for PCP --></div>
+                <div class="card">Radar Plot <!-- Placeholder for Radar Plot --></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

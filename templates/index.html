@@ -25,71 +25,54 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-custom">
-      <div class="container-fluid">
-          <!-- Spotify logo and dashboard name -->
-          <a class="navbar-brand" href="#">
-              <img src="static/img/logo_black.png" alt="Spotify Logo" width="30" height="30" class="d-inline-block align-top" />
-              Spotify Dashboard
-          </a>
-  
-          <!-- Spacer to push content to the right -->
-          <div class="ms-auto"></div>
-  
-          <!-- Date filter and BPM dropdown -->
-          <div class="d-flex align-items-center">
-              <!-- Date filter -->
-              <div class="d-flex align-items-center me-2">
-                  <label for="startDate" class="form-label">Start:</label>
-                  <input type="date" class="form-control" id="startDate">
-              </div>
-              <div class="d-flex align-items-center me-2">
-                  <label for="endDate" class="form-label">End:</label>
-                  <input type="date" class="form-control" id="endDate">
-              </div>
-              <button type="button" class="btn btn-outline-success" onclick="applyDateFilter()">Apply</button>
-  
-              <!-- BPM Dropdown -->
-              <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      Select BPM
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-bpm" aria-labelledby="dropdownMenuButton1">
-                      <!-- Sorted BPM values will be added here -->
-                  </ul>
-              </div>
-              <div id="blinkingCircle" style="width: 20px; height: 20px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+      <div class="navbar-section">
+          <span class="dashboard-title">Dashboard Name</span>
+      </div>
+      <div class="navbar-section">
+          <input type="date" id="startDate" class="date-input">
+          <input type="date" id="endDate" class="date-input">
+          <select id="bpmSelector" class="bpm-selector">
+              <!-- BPM Options -->
+          </select>
+          <div id="blinker" class="blinker"></div>
+      </div>
+  </header>
 
+  <!-- Main Content Area -->
+  <div class="main-content">
+      <!-- Left Column for TreeMap -->
+      <aside class="treemap-container">
+          <div id="treeMap">
+              <!-- Placeholder for TreeMap -->
+              <p>Key TreeMap</p>
+          </div>
+      </aside>
+
+      <!-- Right Column for Other Visualizations -->
+      <div class="visualization-container">
+          <!-- First Row of Cards -->
+          <div class="card-container">
+              <div class="card">Total Songs <span id="songCount">Loading...</span></div>
+              <div class="card">Sonority Index <span id="sonorityIndex">Loading...</span></div>
+              <div class="card" id="percentage">Data Percentage <!-- Placeholder for Donut Chart --></div>
+              <div class="card" id="modesPieChart">Modes Pie Chart <!-- Placeholder for Pie Chart --></div>
+          </div>
+
+          <!-- Second Row for Bubble Chart and Barplot -->
+          <div class="card-container">
+              <div class="card" id="bubbleChart">Genre Bubble Chart <!-- Placeholder for Bubble Chart --></div>
+              <div class="card" id="barChart">Top Songs Barplot <!-- Placeholder for Barplot --></div>
+          </div>
+
+          <!-- Third Row for PCP and Radar Plot -->
+          <div class="card-container">
+              <div class="card" id="pcp">Parallel Coordinates Plot <!-- Placeholder for PCP --></div>
+              <div class="card" id="radarChart">Radar Plot <!-- Placeholder for Radar Plot --></div>
           </div>
       </div>
-  </nav>
-  
-  
-    
-    
-    <div>
-      <div id="barChart"></div>
-      <!-- <div id="keyDonutChart"> </div> -->
-      <div id="modesPieChart"></div>
-
-      <div id="radarChart"></div>
-      <div id="treemap"></div>
-      <div id="bubbleChart"></div>
-      <select id="dataSelect">
-        <option value="playlist">Playlist</option>
-        <option value="charts">Charts</option>
-      </select>
-      <div id="pcp"></div>
-      <div id="percentage"></div>
-      <div class="card">
-        <p>Total Songs</p>
-        <h1 id="songCount">Loading...</h1>  <!-- Placeholder text -->
-      </div>
-      <div class="card">
-        <p>Sonority Index</p>
-        <h1 id="sonorityindex">Loading...</h1>  <!-- Placeholder text -->
-      </div>
-    </div>
+  </div>
 
     <script>
       async function fetchSongCount() {

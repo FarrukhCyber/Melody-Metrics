@@ -10,9 +10,9 @@ export async function createModesPieChart() {
   console.log("In createModesPieChart, Data:", data)
 
   // set the dimensions and margins of the graph
-  const width = 450,
-    height = 450,
-    margin = 40;
+  const width = 120,
+    height = 120,
+    margin = 5;
 
   // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
   const radius = Math.min(width, height) / 2 - margin;
@@ -51,8 +51,8 @@ export async function createModesPieChart() {
     .attr("fill", function (d) {
       return color(d.data[0]);
     })
-    .attr("stroke", "black")
-    .style("stroke-width", "2px")
+    // .attr("stroke", "black")
+    // .style("stroke-width", "1px")
     .style("opacity", 0.7);
 
   // Now add the annotation. Use the centroid method to get the best coordinates
@@ -67,5 +67,5 @@ export async function createModesPieChart() {
       return `translate(${arcGenerator.centroid(d)})`;
     })
     .style("text-anchor", "middle")
-    .style("font-size", 17);
+    .style("font-size", 8);
 }
