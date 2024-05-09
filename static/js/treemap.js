@@ -7,7 +7,7 @@ async function fetchKeyDistr() {
 export async function createTreemap() {
     const data = await fetchKeyDistr();
     const width = 200;  // Overall width of the SVG
-    const height = 600; // Overall height of the SVG
+    const height = 650; // Overall height of the SVG
     // data.sort((a, b) => b.count - a.count); // Sort by count descending
 
     const svg = d3.select('#treemap').append('svg')

@@ -1,55 +1,30 @@
-/* Spotify color theme */
-
-/* .form-label {
-    margin-bottom: 0; 
-}
-.dropdown-menu-bpm {
-    max-height: 200px;
-    overflow-y: auto;
-}
-#blinkingCircle {
-    vertical-align: middle;
-    margin-left: 10px;
-} */
-
-/* Basic Reset */
+/* Basic styles */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    color: #333;
+    /* background: #333; */
+    background:  #191414;
 }
 
-/* Navigation Bar Styles */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #222;
     color: white;
     padding: 10px 20px;
-    margin-bottom: 0px; 
-}
-
-.navbar-section {
-    display: flex;
-    align-items: center;
-}
-
-.dashboard-title {
-    margin-right: 20px;
 }
 
 .date-input, .bpm-selector {
     margin-left: 10px;
     padding: 5px;
-    color: #333;
 }
 
 .blinker {
@@ -59,47 +34,58 @@ body, html {
     border-radius: 50%;
     margin-left: 10px;
     animation: blinker 1s linear infinite;
+    display: inline-block;
 }
 
 @keyframes blinker {
     50% { opacity: 0; }
 }
 
-/* Main Content Layout */
 .main-content {
     display: flex;
-    padding: 8px;
+    padding: 5px;
     margin-top: 0;
 }
 
-.treemap-container {
-    flex: 1;
-    padding: 10px;
+.column {
+    flex: 1;  /* Each of the first two columns takes up 1/5 of the space */
+    margin: 5px;
 }
 
-.visualization-container {
-    flex: 4;
-    padding: 10px;
+.column2 {
+    flex: 0.5;  /* Each of the first two columns takes up 1/5 of the space */
+    margin: 5px;
+}
+
+.column.wide {
+    flex: 4;  /* The rightmost column takes up 3/5 of the space */
+    margin: 5px;
 }
 
 .card-container {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
+    justify-content: space-between;
 }
 
 .card {
-    /* background:  #191414; */
-    background:  #0d1117;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: #212121;
+    padding: 10px 20px 20px 20px;  /* Decreased top padding */
+    margin: 10px;
     flex: 1;
-    margin: 0 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     text-align: center;
     color: white;  /* Change text color to white */
 }
 
-/* Second Row Cards */
+
+
+#songCount, #sonorityIndex {
+    font-size: 35px; /* Larger font size */
+    font-weight: bold; /* Optional: makes the font bold */
+    color: #fcb714;
+}
+
+/* first  Row Cards */
 #bubbleChart{
     flex: 1.5;  /* Smaller card */
 }
@@ -108,11 +94,47 @@ body, html {
     flex: 2.5;  /* Larger card */
 }
 
-/* Third Row Cards */
+/* second Row Cards */
 #pcp{
     flex: 2.5;  /* Larger card */
 }
 
 #radarChart {
     flex: 1.5;  /* Smaller card */
+}
+
+#pcp {
+    display: flex;
+    align-items: center; /* Vertically center the contents */
+}
+
+#pcp > * {
+    margin-right: 10px; /* Add some spacing between the elements */
+}
+
+/* Styles for the dropdown */
+#pcpDataSelect {
+    background-color: #333; /* Set the background color */
+    color: #fcb714; /* Set the text color */
+    padding: 5px; /* Add some padding for better appearance */
+}
+
+/* Styles for the dropdown options */
+#pcpDataSelect option {
+    background-color: #222; /* Set the background color for options */
+    color: #ccc; /* Set the text color for options */
+}
+
+/* Change the background color of the selected text */
+.date-input option::selection {
+    background-color: #fcb714; /* Adjust the color as desired */
+}
+
+/* Change the text color of the selected text */
+.date-input option::-moz-selection {
+    color: #333; /* Adjust the color as desired */
+}
+
+.date-input {
+    color: black; /* Replace #your-desired-color with the hex code or color name you want */
 }

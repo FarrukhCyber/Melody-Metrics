@@ -100,9 +100,9 @@ export async function createRadarChart() {
   //   };
 
   var cfg = {
-    w: 200, //Width of the circle
-    h: 200, //Height of the circle
-    margin: { top: 80, right: 80, bottom: 50, left: 80 }, //The margins of the SVG
+    w: 210, //Width of the circle
+    h: 210, //Height of the circle
+    margin: { top: 80, right: 150, bottom: 50, left: 80 }, //The margins of the SVG
     levels: 5, //How many levels or inner circles should there be drawn
     maxValue: 100, //What is the value that the biggest circle will represent
     labelFactor: 1.25, //How much farther than the radius of the outer circle should the labels be placed
@@ -439,9 +439,10 @@ export async function createRadarChart() {
   var legend = svg
     .append("g")
     .attr("class", "legend")
-    .attr("height", 100)
-    .attr("width", 100)
-    .attr("transform", `translate(${width - margin.right}, ${margin.top-100})`);
+    .attr("height", 150)
+    .attr("width", 150)
+    .attr("transform", `translate(280, 20)`);
+    // .attr("transform", `translate(${width - margin.right}, ${margin.top-100})`);
 
   // Assuming each entry in your data array represents a different group with a 'name' key
   data.forEach(function (d, i) {
@@ -459,7 +460,7 @@ export async function createRadarChart() {
       .attr("x", 20)
       .attr("y", i * 20 + 9)
       .text(track_name[i]) // Change this based on how your data's label is structured
-      .style("font-size", "6px")
+      .style("font-size", "10px")
       .style("fill", 'white')
       .attr("alignment-baseline", "start");
   });

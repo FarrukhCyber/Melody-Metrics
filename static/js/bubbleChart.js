@@ -8,7 +8,7 @@ async function fetchBubbleData() {
 export async function createBubbleChart() {
     const data = await fetchBubbleData();
     const width = 450; // Width of the SVG
-    const height = 250; // Height of the SVG
+    const height = 320; // Height of the SVG
 
     const svg = d3.select('#bubbleChart').append('svg')
         .attr('width', width)
