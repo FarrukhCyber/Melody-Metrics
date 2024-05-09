@@ -16,7 +16,7 @@ export async function createRadarChart() {
   //////////////////////// Set-Up //////////////////////////////
   //////////////////////////////////////////////////////////////
 
-  var margin = { top: 100, right: 100, bottom: 100, left: 100 },
+  var margin = { top: 100, right: 100, bottom: 200, left: 100 },
     width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
     height = Math.min(
       width,
