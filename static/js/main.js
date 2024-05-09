@@ -94,37 +94,6 @@ function updatePlots(columnName, filters, wasReset, platform) {
 }
 
 //============= BPM FILTER ===========================================
-// document.addEventListener('DOMContentLoaded', function() {
-//     const bpmValues = [0, 65, 67, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 160, 161, 162, 163, 164, 165, 166, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 186, 188, 189, 192, 196, 198, 200, 202, 204, 206];
-//     const dropdownButton = document.getElementById('dropdownMenuButton1'); // Your dropdown button
-//     const bpmDropdown = document.getElementById('bpmDropdown');
-//     const blinker = document.getElementById('blinker');
-
-//     bpmValues.forEach(bpm => {
-//         const li = document.createElement('li');
-//         const a = document.createElement('a');
-//         a.classList.add('dropdown-item');
-//         a.href = '#';
-//         a.textContent = bpm + ' BPM';
-//         a.onclick = function() {
-//             updateBlinkingSpeed(bpm);
-//             dropdownButton.textContent = bpm + ' BPM'; // Update the button text
-//             dropdownButton.appendChild(document.createElement("span")).classList.add("caret");
-//             renderPlots('bpm', [[bpm]])
-//         };
-//         li.appendChild(a);
-//         bpmDropdown.appendChild(li);
-//     });
-
-//     let blinkingInterval = null;
-//     function updateBlinkingSpeed(bpm) {
-//         const blinkSpeed = 60000 / bpm;
-//         if (blinkingInterval) clearInterval(blinkingInterval);
-//         blinkingInterval = setInterval(() => {
-//             blinker.style.visibility = (blinker.style.visibility === 'hidden' ? 'visible' : 'hidden');
-//         }, blinkSpeed / 2);
-//     }
-// });
 
 document.addEventListener('DOMContentLoaded', function() {
     const bpmValues = [0, 65, 67, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 160, 161, 162, 163, 164, 165, 166, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 186, 188, 189, 192, 196, 198, 200, 202, 204, 206];
@@ -167,6 +136,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 //====================================================================
+
+
+// =========================DATE FILTER===================================================
+const startDateInput = document.getElementById('startDate');
+const endDateInput = document.getElementById('endDate');
+const resetDatesButton = document.getElementById('resetDates');
+
+// Add event listeners to the input elements
+startDateInput.addEventListener('change', checkAndHandleDateChange);
+endDateInput.addEventListener('change', checkAndHandleDateChange);
+
+// Add event listener to the reset button
+resetDatesButton.addEventListener('click', resetDates);
+
+// Function to check if both dates are selected and handle the date change
+function checkAndHandleDateChange() {
+  const startDate = startDateInput.value;
+  const endDate = endDateInput.value;
+
+  if (startDate && endDate) {
+    handleDateChange(startDate, endDate);
+  }
+}
+
+// Function to handle the date change event
+function handleDateChange(startDate, endDate) {
+  // Do something with the selected start and end dates
+  console.log('Start Date:', startDate);
+  console.log('End Date:', endDate);
+  renderPlots('date', [[startDate, endDate]]);
+
+  // You can call a function or perform any other desired operation here
+  // For example, you could pass the selected dates to a function like:
+  // filterDataByDate(startDate, endDate);
+}
+
+// Function to reset the start and end date inputs
+function resetDates() {
+  console.log("Dates reset")
+  startDateInput.value = '';
+  endDateInput.value = '';
+}
+
+// =================================================================================
+globalState.subscribe(updatePlots);
 globalState.subscribe(updatePlots);
 renderPlots(NaN, NaN)
 
