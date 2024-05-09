@@ -27,7 +27,7 @@ export async function createBubbleChart(columnName=NaN, filters=NaN) {
 
     // Sort data by count and slice to get top 10 for labeling
     data.sort((a, b) => b.count - a.count);
-    const top10Genres = new Set(data.slice(0, 10).map(d => d.genre));
+    const top10Genres = new Set(data.slice(0, 5).map(d => d.genre));
 
     const pack = d3.pack()
         .size([width, height])
@@ -41,12 +41,14 @@ export async function createBubbleChart(columnName=NaN, filters=NaN) {
     const color = d3.scaleOrdinal(d3.schemeCategory10); // Color scale
 
     svg.selectAll('circle')
-        .data(bubbles)
-        .enter().append('circle')
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y)
-        .attr('r', d => d.r)
-        .style('fill', d => color(d.data.genre));
+    .data(bubbles)
+    .enter().append('circle')
+    .attr('cx', d => d.x)
+    .attr('cy', d => d.y)
+    .attr('r', d => d.r)
+    .style('fill', d => color(d.data.genre))
+    .append('title') // Add a title element for each circle
+    .text(d => `${d.data.genre}: ${d.data.count} songs`); // Set tooltip text
 
     // Append text only to the top 10 largest bubbles
     svg.selectAll('text')
