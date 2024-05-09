@@ -17,6 +17,7 @@ export const globalState = {
     
     // Notify all observers about the change
     notifyObservers: function() {
+        console.log("GLOBAL STATE UPDATED")
         this.observers.forEach(observer => observer(this.columnName, Array.from(this.filters), this.wasReset));
     },
     

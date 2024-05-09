@@ -3,7 +3,7 @@ from flask import jsonify
 def get_radar_chart_data(df):
     # Sort the dataset by streams and pick the top 3
     top_songs = df.sort_values(by='streams', ascending=False).head(3)
-    print("TOP SONGS:", top_songs)
+    # print("TOP SONGS:", top_songs)
     
     # Select the relevant attributes for the radar chart
     radar_data = top_songs[['track_name', 'danceability_%', 'valence_%', 'energy_%', 

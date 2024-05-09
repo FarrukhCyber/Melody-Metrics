@@ -30,16 +30,34 @@ function updatePlots(columnName, filters, wasReset) {
     if (wasReset) {
         console.log("inside reset check")
         renderPlots()
+        return
     }
-    else {
 
-        // For interactivity with barplot
+
+    // For interactivity with barplot
+    if (columnName == 'track_name') {
+        console.log("inside track_name section of updatePlots")
         createModesPieChart(columnName, filters)
         createTreemap(columnName, filters)
         createBubbleChart(columnName, filters)
         createParallelCoordinatesPlot(columnName, filters, platform)
         createRadarChart(columnName, filters)
+
+        return
     }
+
+    // For interactivity with MODES pieChart
+    if (columnName == 'mode') {
+        console.log("inside mode section of updatePlots")
+        createTop30BarChart(columnName, filters)
+        createTreemap(columnName, filters)
+        createBubbleChart(columnName, filters)
+        createParallelCoordinatesPlot(columnName, filters, platform)
+        createRadarChart(columnName, filters)
+
+        return
+    }
+
 
 
 }

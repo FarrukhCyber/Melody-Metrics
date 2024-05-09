@@ -1,15 +1,24 @@
 import { globalState } from "./globalState.js";
-// import {globalState} from './main.js'
 
-async function fetchTop30() {
-    const response = await fetch("/top30");
-    const data = await response.json();
-    // console.log(data)
-    return data;
-  }
+async function fetchTop30(columnName, filters) {
+    // const response = await fetch("/top30");
+    // const data = await response.json();
+    // // console.log(data)
+    // return data;
+    const response = await fetch("/top30", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({columnName: columnName, filters: filters }),
+      });
+      const data = await response.json();
+      console.log("CHECK:", data);
+      return data;
+}
 
-export async function createTop30BarChart() {
-    const data = await fetchTop30();
+export async function createTop30BarChart(columnName=NaN, filters=NaN) {
+    const data = await fetchTop30(columnName, filters);
     let selectedSongs = [];
 
 

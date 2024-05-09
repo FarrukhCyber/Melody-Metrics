@@ -73,9 +73,17 @@ def test():
 # def keys_pie_chart():
 #     return get_keys_pie_chart_data(df)
 
-@app.route('/top30', methods=['GET'])
+@app.route('/top30', methods=['POST'])
 def top30():
-    return get_top_30(df)
+    columnName = request.get_json().get('columnName')
+    filters = request.get_json().get('filters')
+    print("In top30: ", columnName, filters)
+    
+    filtered_df = df
+    if filters and columnName:
+        filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
+        
+    return get_top_30(filtered_df)
 
 @app.route('/modes', methods=['POST'])
 def modes_pie_chart():
