@@ -10,6 +10,8 @@ export async function drawPercentage() {
         .innerRadius(60)
         .outerRadius(70);
 
+
+    d3.select("#percentage").select("svg").remove();
     const svg = d3.select("#percentage").append("svg")
         .attr("width", width)
         .attr("height", height)

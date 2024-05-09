@@ -1,28 +1,31 @@
-async function fetchPCPData(platform) {
+async function fetchPCPData(columnName, filters, platform) {
     // console.log("Sending K_value:", k_value);
     const response = await fetch("/pcp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({platform: platform }),
+      body: JSON.stringify({columnName: columnName, filters: filters, platform: platform }),
     });
     const data = await response.json();
     console.log("CHECK:", data);
     return data;
 }
 
-export async function createParallelCoordinatesPlot(platform) {
+export async function createParallelCoordinatesPlot(columnName, fil, platform='playlist') {
     console.log("creating PCP");
-    var data = await fetchPCPData(platform);
+    var data = await fetchPCPData(columnName, fil, platform);
 
     if (platform == 'playlist'){
         var orderedDimensions = ['in_spotify_playlists', 'in_apple_playlists', 'in_deezer_playlists'];
     }
     else{
-        var orderedDimensions = ['in_spotify_charts', 'in_apple_charts', 'in_deezercharts', 'in_shazam_charts'];
+        var orderedDimensions = ['in_shazam_charts', 'in_spotify_charts', 'in_deezer_charts', 'in_apple_charts', ];
 
     }
+
+    console.log("platform:", platform)
+    console.log("orderedDimensions:", orderedDimensions)
 
     const width = 650,
     height = 200;
@@ -117,6 +120,19 @@ export async function createParallelCoordinatesPlot(platform) {
     svg.selectAll(".line").transition().duration(500).attr("d", path); // Redraw the lines based on the updated axis positions
     }
 
+    // Draw the lines
+    svg .selectAll("myPath")
+        .data(data)
+        .enter()
+        .append("path")
+        .attr("class", function (d) {
+            return "line " + d.cluster;
+        }) // 2 class for each line: 'line' and the group name
+        .attr("d", path)
+        .style("fill", "none")
+        .style("stroke", (d) => color(d.cluster))
+        .style("opacity", 0.5);
+
     // Draw the axis with drag behavior
     svg
     .selectAll(".axis")
@@ -144,9 +160,9 @@ export async function createParallelCoordinatesPlot(platform) {
     )
     .append("text")
     .style("text-anchor", "start")
-    .attr("y", -4)
+    .attr("y", -14)
     .attr("x", -50)
-    .attr("transform", "rotate(-10)")
+    // .attr("transform", "rotate(-10)")
     .text(function (d) {
         return d;
     })
@@ -231,17 +247,17 @@ export async function createParallelCoordinatesPlot(platform) {
 
  
 
-    // Draw the lines
-    svg
-    .selectAll("myPath")
-    .data(data)
-    .enter()
-    .append("path")
-    .attr("class", function (d) {
-        return "line " + d.cluster;
-    }) // 2 class for each line: 'line' and the group name
-    .attr("d", path)
-    .style("fill", "none")
-    .style("stroke", (d) => color(d.cluster))
-    .style("opacity", 0.5);
+    // // Draw the lines
+    // svg
+    // .selectAll("myPath")
+    // .data(data)
+    // .enter()
+    // .append("path")
+    // .attr("class", function (d) {
+    //     return "line " + d.cluster;
+    // }) // 2 class for each line: 'line' and the group name
+    // .attr("d", path)
+    // .style("fill", "none")
+    // .style("stroke", (d) => color(d.cluster))
+    // .style("opacity", 0.5);
 }

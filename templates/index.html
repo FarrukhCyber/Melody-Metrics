@@ -31,6 +31,7 @@
       <span class="dashboard-title">Spotify Dashboard</span>
   </div>
   <div class="navbar-section">
+      <button id="resetButton" class="reset-button">Reset</button>
       <div class="date-filter">
           <span>Start:</span> <!-- Label for the start date -->
 
@@ -59,8 +60,8 @@
         <div class="column">
             <div class="card"> Total Songs <span id="songCount">Loading...</span></div>
             <div class="card">Sonority Index<span id="sonorityIndex">Loading...</span></div>
-            <div class="card" id="percentage"> Data Percentage  <!-- Placeholder for Donut Chart --></div>
-            <div class="card" id="modesPieChart">Modes Pie Chart  <!-- Placeholder for Pie Chart --></div>
+            <div class="card" id="percentage"> Data Percentage <!-- Placeholder for Donut Chart --></div>
+            <div class="card" id="modesPieChart">Modes Pie Chart <!-- Placeholder for Pie Chart --></div>
         </div>
 
         <!-- Middle Column -->
@@ -87,15 +88,20 @@
                     <p>Parallel Coordinates Plot</p>
                     <select id="pcpDataSelect" data-placeholder="Select an option">
                         <option value="playlist">Playlist</option>
-                        <option value="charts">Charts</option>
-                    </select> 
+                        <option value="chart">Charts</option>
+                    </select>
                 </div>
 
                 <div class="card" id="radarChart">Radar Plot </div>
             </div>
         </div>
     </div>
-
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="module" src="{{ url_for('static', filename='js/main.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         async function fetchSongCount() {
             const response = await fetch('/song_count');
@@ -139,14 +145,42 @@
             }, blinkSpeed / 2);
         }
     </script>
+    <script type="module">
+        import { globalState } from '/static/js/globalState.js';
 
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('resetButton').addEventListener('click', () => {
+                globalState.reset();
+                console.log("Global state has been reset.");
+            });
+        });
     </script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script type="module" src="{{ url_for('static', filename='js/main.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script type="module">
+        import { createParallelCoordinatesPlot } from '/static/js/pcp.js';
+        import { globalState } from '/static/js/globalState.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if the element exists
+            var selectElement = document.getElementById('pcpDataSelect');
+            if (!selectElement) {
+                console.error('Dropdown element not found!');
+                return;
+            }
+
+            // Event listener for the dropdown change
+            selectElement.addEventListener('change', function () {
+                var selectedOption = this.value;  // 'this' refers to the select element
+                console.log("Selected option:", selectedOption); // Debugging line to check the selected option
+                // createParallelCoordinatesPlot(NaN, NaN, selectedOption);
+                globalState.setFilters("pcp", NaN, selectedOption )
+            });
+
+            // Initial call to set up the default plot
+            // createParallelCoordinatesPlot(NaN, NaN, selectElement.value);
+
+        });
+    </script>
 </body>
 
 </html>

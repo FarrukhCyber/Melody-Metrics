@@ -1,6 +1,16 @@
-async function fetchRadarChartData() {
-  const response = await fetch("/radar");
+async function fetchRadarChartData(columnName, filters) {
+  // const response = await fetch("/radar");
+  // const data = await response.json();
+  // return data;
+  const response = await fetch("/radar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({columnName: columnName, filters: filters }),
+  });
   const data = await response.json();
+  console.log("CHECK RADAR DATA:", data);
   return data;
 }
 //Reference:
@@ -11,7 +21,7 @@ async function fetchRadarChartData() {
 /////////// Inspired by the code of alangrafu ///////////
 /////////////////////////////////////////////////////////
 
-export async function createRadarChart() {
+export async function createRadarChart(columnName=NaN, filters=NaN) {
   //////////////////////////////////////////////////////////////
   //////////////////////// Set-Up //////////////////////////////
   //////////////////////////////////////////////////////////////
@@ -31,7 +41,7 @@ export async function createRadarChart() {
   //////////////////////////////////////////////////////////////
   ////////////////////////// Data //////////////////////////////
   //////////////////////////////////////////////////////////////
-  var data = await fetchRadarChartData();
+  var data = await fetchRadarChartData(columnName, filters);
   console.log("RawData: ", data);
 
   var track_name = data.map(({ track_name }) => track_name);

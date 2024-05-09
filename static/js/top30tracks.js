@@ -1,17 +1,33 @@
-async function fetchTop30() {
-    const response = await fetch("/top30");
-    const data = await response.json();
-    // console.log(data)
-    return data;
-  }
+import { globalState } from "./globalState.js";
 
-export async function createTop30BarChart() {
-    const data = await fetchTop30();
+async function fetchTop30(columnName, filters) {
+    // const response = await fetch("/top30");
+    // const data = await response.json();
+    // // console.log(data)
+    // return data;
+    const response = await fetch("/top30", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({columnName: columnName, filters: filters }),
+      });
+      const data = await response.json();
+      console.log("CHECK:", data);
+      return data;
+}
+
+export async function createTop30BarChart(columnName=NaN, filters=NaN) {
+    const data = await fetchTop30(columnName, filters);
+    let selectedSongs = [];
+
+
     // const margin = { top: 50, right: 30, bottom: 120, left: 100 },
     const margin = { top: 10, right: 10, bottom: 120, left: 80 },
         width = 700 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
 
+    d3.select("#barChart").select("svg").remove();    
     // Append the svg object to the body of the page
     const svg = d3.select("#barChart").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -54,7 +70,33 @@ export async function createTop30BarChart() {
         .attr("y", d => y(d.streams))
         .attr("width", x.bandwidth())
         .attr("height", d => height - y(d.streams))
-        .attr("fill", "#1DB954");  // You can change bar color here if needed
+        .attr("fill", "#1DB954")  // You can change bar color here if needed
+        .on("click", function(event, d) {
+            const songName = d.track_name;
+
+                // Check if the song is already selected
+            const isSelected = selectedSongs.includes(songName);
+            d3.select(this).attr("fill", isSelected ? "#1DB954" : "orange");
+
+            if (isSelected) {
+                // If the song is already selected, remove it from the list
+                selectedSongs = selectedSongs.filter(song => song !== songName);
+            } else {
+                // If the song is not selected, add it to the list
+                if (selectedSongs.length < 5) {
+                    selectedSongs.push(songName);
+                } else {
+                    // If the maximum of 5 songs is reached, alert the user
+                    alert("You can only select up to 5 songs.");
+                }
+            }
+
+            // Update the global state with the list of selected songs
+            if(selectedSongs.length == 5) {
+                console.log("SelectedSongs: ", selectedSongs)
+                globalState.setFilters("track_name", selectedSongs);
+            }
+        });
 
     svg.append("text")
     .attr("x", width / 2)
