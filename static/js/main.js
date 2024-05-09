@@ -13,16 +13,16 @@ import { createSongDuration } from './updateDuration.js'
 
 // var platform = 'playlist'
 
-function renderPlots() {
-    createTop30BarChart()
-    createModesPieChart()
-    createRadarChart()
-    createTreemap()
-    createBubbleChart()
-    createParallelCoordinatesPlot(NaN, NaN, 'playlist' )
-    drawPercentage()
-    createSongCount()
-    createSongDuration()
+function renderPlots(columnName, filters) {
+    createTop30BarChart(columnName, filters)
+    createModesPieChart(columnName, filters)
+    createRadarChart(columnName, filters)
+    createTreemap(columnName, filters)
+    createBubbleChart(columnName, filters)
+    createParallelCoordinatesPlot(columnName, filters, 'playlist' )
+    drawPercentage(columnName, filters)
+    createSongCount(columnName, filters)
+    createSongDuration(columnName, filters)
 }
 
 
@@ -93,8 +93,80 @@ function updatePlots(columnName, filters, wasReset, platform) {
 
 }
 
+//============= BPM FILTER ===========================================
+// document.addEventListener('DOMContentLoaded', function() {
+//     const bpmValues = [0, 65, 67, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 160, 161, 162, 163, 164, 165, 166, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 186, 188, 189, 192, 196, 198, 200, 202, 204, 206];
+//     const dropdownButton = document.getElementById('dropdownMenuButton1'); // Your dropdown button
+//     const bpmDropdown = document.getElementById('bpmDropdown');
+//     const blinker = document.getElementById('blinker');
 
+//     bpmValues.forEach(bpm => {
+//         const li = document.createElement('li');
+//         const a = document.createElement('a');
+//         a.classList.add('dropdown-item');
+//         a.href = '#';
+//         a.textContent = bpm + ' BPM';
+//         a.onclick = function() {
+//             updateBlinkingSpeed(bpm);
+//             dropdownButton.textContent = bpm + ' BPM'; // Update the button text
+//             dropdownButton.appendChild(document.createElement("span")).classList.add("caret");
+//             renderPlots('bpm', [[bpm]])
+//         };
+//         li.appendChild(a);
+//         bpmDropdown.appendChild(li);
+//     });
+
+//     let blinkingInterval = null;
+//     function updateBlinkingSpeed(bpm) {
+//         const blinkSpeed = 60000 / bpm;
+//         if (blinkingInterval) clearInterval(blinkingInterval);
+//         blinkingInterval = setInterval(() => {
+//             blinker.style.visibility = (blinker.style.visibility === 'hidden' ? 'visible' : 'hidden');
+//         }, blinkSpeed / 2);
+//     }
+// });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const bpmValues = [0, 65, 67, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 160, 161, 162, 163, 164, 165, 166, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 186, 188, 189, 192, 196, 198, 200, 202, 204, 206];
+    const dropdownButton = document.getElementById('dropdownMenuButton1');
+    const bpmDropdown = document.getElementById('bpmDropdown');
+    const blinker = document.getElementById('blinker');
+
+    bpmValues.forEach(bpm => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.classList.add('dropdown-item');
+        a.href = '#';
+        a.textContent = bpm === 0 ? 'Select BPM' : `${bpm} BPM`;
+        a.onclick = function() {
+            updateBlinkingSpeed(bpm);
+            dropdownButton.textContent = bpm === 0 ? 'Select BPM' : `${bpm} BPM`;
+            dropdownButton.appendChild(document.createElement("span")).classList.add("caret");
+            if (bpm === 0) {
+                renderPlots(NaN, NaN); // Call renderPlots with NaN when "Select BPM" is selected
+            } else {
+                renderPlots('bpm', [[bpm]]);
+            }
+        };
+        li.appendChild(a);
+        bpmDropdown.appendChild(li);
+    });
+
+    let blinkingInterval = null;
+
+    function updateBlinkingSpeed(bpm) {
+        const blinkSpeed = bpm === 0 ? null : 60000 / bpm;
+        if (blinkingInterval) clearInterval(blinkingInterval);
+        if (blinkSpeed !== null) {
+            blinkingInterval = setInterval(() => {
+                blinker.style.visibility = (blinker.style.visibility === 'hidden' ? 'visible' : 'hidden');
+            }, blinkSpeed / 2);
+        } else {
+            blinker.style.visibility = 'hidden';
+        }
+    }
+});
+//====================================================================
 globalState.subscribe(updatePlots);
-renderPlots()
+renderPlots(NaN, NaN)
 
-// export const TEST = {"hello": 12} 
