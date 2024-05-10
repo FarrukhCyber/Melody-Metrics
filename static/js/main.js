@@ -139,6 +139,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // =========================DATE FILTER===================================================
+async function fetchValidation(columnName, filters) {
+
+    const response = await fetch("/test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({columnName: columnName, filters: filters}),
+      });
+      const data = await response.json();
+      console.log("CHECK %:", data);
+      return data;
+}
+
 const startDateInput = document.getElementById('startDate');
 const endDateInput = document.getElementById('endDate');
 const resetDatesButton = document.getElementById('resetDates');
@@ -161,11 +175,19 @@ function checkAndHandleDateChange() {
 }
 
 // Function to handle the date change event
-function handleDateChange(startDate, endDate) {
+async function handleDateChange(startDate, endDate) {
   // Do something with the selected start and end dates
   console.log('Start Date:', startDate);
   console.log('End Date:', endDate);
-  renderPlots('date', [[startDate, endDate]]);
+
+  const {valid} = await fetchValidation('date', [[startDate, endDate]])
+  if (valid) {
+      console.log("valid")
+      renderPlots('date', [[startDate, endDate]]);
+  }
+  else {
+    alert("In correct dates or there are no songs in the range")
+  }
 
   // You can call a function or perform any other desired operation here
   // For example, you could pass the selected dates to a function like:
@@ -177,6 +199,7 @@ function resetDates() {
   console.log("Dates reset")
   startDateInput.value = '';
   endDateInput.value = '';
+  renderPlots(NaN, NaN);
 }
 
 // =================================================================================
