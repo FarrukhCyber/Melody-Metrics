@@ -17,6 +17,8 @@ from treemap import get_key_distribution
 from bubble_chart import get_genre_distribution
 # from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from datetime import datetime
+
 
 app = Flask(__name__)
 # CORS(app)
@@ -65,13 +67,25 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/test', methods=['GET'])
-def test():
-    return "Hello"
-
 # @app.route('/keys', methods=['GET'])
 # def keys_pie_chart():
 #     return get_keys_pie_chart_data(df)
+
+@app.route('/test', methods=['POST'])
+def test():
+    columnName = request.get_json().get('columnName')
+    filters = request.get_json().get('filters')
+    print("In test: ", columnName, filters)
+    
+    filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+
+    isValid = False
+    if filtered_df.shape[0] > 0:
+        isValid = True
+        
+    return jsonify({'valid': isValid})
+
+
 
 @app.route('/top30', methods=['POST'])
 def top30():
@@ -80,7 +94,10 @@ def top30():
     print("In top30: ", columnName, filters)
     
     filtered_df = df
-    if filters and columnName:
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     return get_top_30(filtered_df)
@@ -92,7 +109,10 @@ def modes_pie_chart():
     print("In modes: ", columnName, filters)
     
     filtered_df = df
-    if filters and columnName:
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     return get_modes_pie_chart_data(filtered_df)
@@ -105,7 +125,10 @@ def radar_chart():
     print("In radar: ", columnName, filters)
     
     filtered_df = df
-    if filters and columnName:
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     return get_radar_chart_data(filtered_df)
@@ -119,7 +142,10 @@ def treemap():
     print("In treemap: ", columnName, filters)
     
     filtered_df = df
-    if filters and columnName:
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     data = get_key_distribution(filtered_df)
@@ -133,7 +159,10 @@ def bubble_chart():
     print("In bubblechart: ", columnName, filters)
     
     filtered_df = df
-    if filters and columnName:
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     data = get_genre_distribution(filtered_df)
@@ -148,10 +177,17 @@ def pcp():
     filters = request.get_json().get('filters')
     print("In pcp: ", columnName, filters)
 
-    
     filtered_df = df
-    if (filters and columnName) and columnName != 'track_name':
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        filtered_df = filtered_df if filtered_df.shape[0] > 5 else df
+        
+    elif (filters and columnName) and columnName != 'track_name':
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
+
+    # filtered_df = df
+    # if (filters and columnName) and columnName != 'track_name':
+    #     filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     temp = filtered_df.drop(["genre", "track_name", "artist(s)_name"], axis=1)
 
@@ -191,7 +227,10 @@ def get_percentage():
     print("In bubblechart: ", columnName, filters)
     
     filtered_df = df
-    if filters and columnName:
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     total_count = df.shape[0]
@@ -209,7 +248,10 @@ def song_count():
     print("In song_count: ", columnName, filters)
     
     filtered_df = df
-    if filters and columnName:
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
 
     # # Count the songs (customize this if you need to filter the data)
@@ -224,10 +266,12 @@ def song_duration():
     filters = request.get_json().get('filters')
     print("In song_count: ", columnName, filters)
     
-    print("df:\n", df)
+    # print("df:\n", df)
     filtered_df = df
-    if filters and columnName:
-        print("inside IF")
+    if columnName == 'date':
+        filtered_df = filter_songs_by_release_date(df, filters[0][0], filters[0][1] )
+        
+    elif filters and columnName:
         filtered_df = df[df[columnName].isin(filters[0])] # filters[0] because filters is a list of lists
         
     total_duration_ms = filtered_df['duration_ms'].sum()  # Summing up the 'duration_ms' values
@@ -245,6 +289,37 @@ def song_duration():
     print("Average duration of songs:", average_duration_minutes, "minutes")
     return jsonify({'duration': average_duration_minutes})
 
+
+def filter_songs_by_release_date(df, start_date_str, end_date_str):
+    """
+    Filters a DataFrame of songs based on their release date.
+
+    Args:
+        df (pandas.DataFrame): A DataFrame containing song data with columns 'track_name',
+                                'released_year', 'released_month', and 'released_day'.
+        start_date_str (str): The start date in the format 'yyyy-mm-dd'.
+        end_date_str (str): The end date in the format 'yyyy-mm-dd'.
+
+    Returns:
+        pandas.DataFrame: A DataFrame containing the filtered songs released between (and including)
+                           the start and end dates.
+    """
+    # Convert the input date strings to datetime objects
+    start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+    end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+
+    # Create a datetime column from the release date components
+    df['release_date'] = pd.to_datetime(
+        dict(year=df['released_year'], month=df['released_month'], day=df['released_day'])
+    )
+
+    # Filter the DataFrame based on the release date range
+    filtered_df = df[(df['release_date'] >= start_date) & (df['release_date'] <= end_date)]
+
+    # Drop the temporary 'release_date' column
+    filtered_df = filtered_df.drop('release_date', axis=1)
+
+    return filtered_df
 
 
 if __name__ == '__main__':

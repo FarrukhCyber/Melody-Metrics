@@ -3,6 +3,7 @@ export const globalState = {
     columnName: "",
     platform: "playlist",
     wasReset: false,  // Property to track if a reset has occurred
+    bpm: 150,
     observers: [],
 
     //===================== DONT NEED TO CHANGE THIS =======================
@@ -19,18 +20,19 @@ export const globalState = {
     // Notify all observers about the change
     notifyObservers: function() {
         console.log("GLOBAL STATE UPDATED")
-        this.observers.forEach(observer => observer(this.columnName, Array.from(this.filters), this.wasReset, this.platform));
+        this.observers.forEach(observer => observer(this.columnName, Array.from(this.filters), this.wasReset, this.platform, this.bpm));
     },
     
     // =====================================================================
     
     //===================== INSERT THE ADD FUNCTIONS OF NEW FILTERS HERE =======================
     // Add a song to the state and notify observers
-    setFilters: function(name, fiterList, platform='playlist') {
+    setFilters: function(name, fiterList, platform='playlist', bpm=150) {
         // this.filters = fiterList;
         this.filters.add(fiterList);
         this.columnName = name
         this.platform = platform
+        this.bpm = bpm
         this.notifyObservers();
     },
 
