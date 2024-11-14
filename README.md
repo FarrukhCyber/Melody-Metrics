@@ -1,6 +1,7 @@
 ### Melody Metrics: A Music Analytics Dashboard
 
 <img src="./sc_dashboard.png" width=700 height=400>
+
 #### Overview
 **Melody Metrics** is a dynamic and interactive music analytics dashboard that visualizes patterns in music consumption across platforms like Spotify and Apple Music. Built using the **Spotify2023 dataset** and real-time data fetched from Spotify's API, the dashboard provides actionable insights for music professionals by highlighting trends in genres, song popularity, and audio features.
 
